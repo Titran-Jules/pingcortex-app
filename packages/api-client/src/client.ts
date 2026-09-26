@@ -44,4 +44,66 @@ export const createApiClient = (config: ApiClientConfig): AxiosInstance => {
         },
         (error) => Promise.reject(error)
     );
+
+    api.interceptors.response.use(
+        (response) => response,
+        async (error: AxiosError<ErrorResponse>) => {
+            const originalRequest = error.config as InternalAxiosRequestConfig & {_retry?: boolean};
+
+            if (error.response?.status !== 401 || originalRequest._retry) {
+                return Promise.reject(error);
+            }
+            if (originalRequest.url?.includes('/auth/refresh') || originalRequest.url?.includes('/auth/login')) {
+                return Promise.reject(error);
+            }
+            if (isRefreshing) {
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({resolve, reject});
+                })
+                    .then((newToken) => {
+                        if (originalRequest.headers) {
+                            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                        }
+                        return api(originalRequest);
+                    })
+                    .catch((err) => Promise.reject(err));
+            }
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            try {
+                const refreshToken = await config.getRefreshToken();
+                if (!refreshToken) {
+                    throw new Error('No refresh token available');
+                }
+                const {data} = await axios.post<RefreshResponse>(
+                    `${api.defaults.baseURL}/auth/refresh`,
+                    {refreshToken},
+                    {headers: {'Content-Type': 'application/json'}}
+                );
+                tokenStore.setAccessToken(data.accessToken);
+
+                await config.setRefreshToken(data.refreshToken);
+
+                processQueue(null, data.accessToken);
+
+                if (originalRequest.headers) {
+                    originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+                }
+                return api(originalRequest);
+            } catch (refreshError) {
+                processQueue(refreshError, null);
+                tokenStore.clearAccessToken();
+                await config.setRefreshToken(null);
+
+                if (config.onUnauthenticated) {
+                    config.onUnauthenticated();
+                }
+                return Promise.reject(refreshError);
+            } finally {
+                isRefreshing = false;
+            }
+        }
+    );
+    return api;
 }
