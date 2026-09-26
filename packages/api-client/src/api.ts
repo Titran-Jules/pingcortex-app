@@ -20,7 +20,7 @@ export class PingCortexApi {
             this.client.get<UserResponse>('/users/me').then((res) => res.data),
 
         getApiKeys: () =>
-            this.client.get<ApiKeyResponse>('/users/me/api-keys').then((res) => res.data),
+            this.client.get<ApiKeyResponse[]>('/users/me/api-keys').then((res) => res.data),
 
         addApiKey: (data: ApiKeyCreate) =>
             this.client.post<ApiKeyResponse>('/users/me/api-keys', data).then((res) => res.data),
