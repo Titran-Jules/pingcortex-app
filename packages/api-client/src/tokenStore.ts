@@ -1,6 +1,6 @@
 let memoryAccessToken: string | null = null;
 
-export const tokenScore = {
+export const tokenStore = {
     getAccessToken: (): string | null => memoryAccessToken,
     setAccessToken: (token: string | null): void => {
         memoryAccessToken = token;
