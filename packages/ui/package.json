@@ -1,5 +1,5 @@
 {
-  "name": "@pingcortex/api-client",
+  "name": "@pingcortex/ui",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -8,10 +8,15 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.4.0"
   },
   "dependencies": {
     "@pingcortex/shared-types": "workspace:*",
-    "axios": "^1.20.0"
+    "axios": "^1.20.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
   }
 }
