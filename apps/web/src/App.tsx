@@ -1,7 +1,9 @@
+import { LoginPage } from "./pages/LoginPage";
+
 export default function App() {
   return (
     <>
-      <div className="text-blue-400">Hello, World!</div>
+      <LoginPage/>
     </>
   );
 }
