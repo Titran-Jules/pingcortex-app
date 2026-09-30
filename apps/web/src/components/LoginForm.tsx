@@ -1,32 +1,72 @@
-import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui"
+import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
+
+const EmailIcon = () => (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+);
+
+const LockIcon = () => (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+    </svg>
+);
 
 export const LoginForm = () => {
     return (
-        <NeumorphicCard className="max-w-md mx-auto my-auto p-8 flex flex-col gap-6 relative top-20">
-            <div className="flex flex-col items-center">
-                <img className="w-45 h-45" src="/logo.png" alt="Logo PingCortex" />
-                <h2 className="text-[2rem] font-bold text-primary">Ping<span className="text-slate-800 dark:text-white">Cortex</span></h2>
-                <h3 className="text-[1.05rem] text-sub-text">AI-Powered Study Plateform</h3>
-            </div>
-            <div className="flex flex-col gap-6">
-                <SoftInput label="Email" type="email" placeholder="etudiant@pingcortex.com" />
-                <SoftInput label="Mot de passe" type="password" />
-                <div className="flex justify-between">
-                    <div className="flex items-center">
-                        <input type="checkbox" name="" id="" className="mr-2" />
-                        <label className="text-[0.9rem] text-sub-text">Se souvenir de moi</label>
+        <div className="min-h-screen bg-neu-bg dark:bg-neu-dark-bg flex items-center justify-center p-4">
+            <NeumorphicCard className="w-full max-w-md p-8 flex flex-col gap-6">
+                <div className="flex flex-col items-center text-center gap-2">
+                    <div className="w-25 h-25 rounded-full flex items-center justify-center bg-neu-bg dark:bg-neu-dark-bg shadow-neu-flat dark:shadow-neu-dark-flat p-3 mb-2">
+                        <img className="w-full h-full object-contain" src="/logo.png" alt="Logo PingCortex" />
                     </div>
-                    <div>
-                        <p className="text-secondary underline text-[0.9rem] hover:text-[#595cf0] cursor-default">Mot de passe oublié?</p>
-                    </div>
+                    <h2 className="text-3xl font-extrabold tracking-tight text-primary dark:text-white">
+                        Ping<span className="text-blue-950">Cortex</span>
+                    </h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Bienvenue sur votre espace d'apprentissage</p>
                 </div>
-                <GlowButton variant="primary" isGlowing className="mt-2">
-                    Se connecter
-                </GlowButton>
-            </div>
-            <div>
-                <p className="text-[0.9rem] text-sub-text text-center">Vous n'avez pas de compte? <span className="text-secondary underline text-[0.9rem] hover:text-[#595cf0] cursor-default">S'inscrire</span></p>
-            </div>
-        </NeumorphicCard>
+
+                <div className="flex flex-col gap-5">
+                    <SoftInput
+                        label="Adresse Email"
+                        type="email"
+                        placeholder="etudiant@pingcortex.com"
+                        icon={<EmailIcon />}
+                    />
+                    <SoftInput
+                        label="Mot de passe"
+                        type="password"
+                        placeholder="••••••••"
+                        icon={<LockIcon />}
+                    />
+
+                    <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
+                        <label className="flex items-center gap-2 text-slate-600 dark:text-slate-400 cursor-pointer select-none">
+                            <input
+                                type="checkbox"
+                                className="w-4 h-4 rounded border-slate-300 text-brand-500 focus:ring-brand-500/50 accent-brand-500 cursor-pointer"
+                            />
+                            Se souvenir de moi
+                        </label>
+                        <a href="#forgot" className="text-brand-500 hover:text-brand-600 font-medium transition-colors">
+                            Mot de passe oublié ?
+                        </a>
+                    </div>
+
+                    <GlowButton variant="primary" isGlowing className="w-full mt-2">
+                        Se connecter
+                    </GlowButton>
+                </div>
+
+                <div className="text-center pt-4 border-t border-slate-300/40 dark:border-slate-800/40">
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                        Vous n'avez pas de compte ?{" "}
+                        <a href="#register" className="text-brand-500 font-semibold hover:underline">
+                            S'inscrire
+                        </a>
+                    </p>
+                </div>
+            </NeumorphicCard>
+        </div>
     );
 };
