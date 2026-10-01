@@ -1,4 +1,7 @@
 import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
+import type { LoginRequest } from "../../../../packages/shared-types/src";
+import { api } from "../api/api";
+import { useState } from "react";
 
 const EmailIcon = () => (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,6 +16,38 @@ const LockIcon = () => (
 );
 
 export const LoginForm = () => {
+    const [formData, setFormData] = useState<LoginRequest>({
+        email: "",
+        password: ""
+    });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+        if (errorMessage) setErrorMessage(null);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.email || !formData.password) {
+            setErrorMessage("Veuillez remplir tous les champs obligatoire.");
+            return;
+        }
+        setIsLoading(true);
+        try {
+            await api.auth.login(formData);
+        } catch (error) {
+            setErrorMessage("Identifiants incorrects. Veuillez réessayer.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-neu-bg dark:bg-neu-dark-bg flex items-center justify-center p-4">
             <NeumorphicCard className="w-full max-w-md p-8 flex flex-col gap-6">
@@ -26,18 +61,32 @@ export const LoginForm = () => {
                     <p className="text-xs text-slate-500 dark:text-slate-400">Bienvenue sur votre espace d'apprentissage</p>
                 </div>
 
-                <div className="flex flex-col gap-5">
+                {errorMessage && (
+                    <div className="p-3 rounded-neu-sm bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs text-center font-medium">
+                        {errorMessage}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <SoftInput
                         label="Adresse Email"
+                        name="email"
                         type="email"
                         placeholder="etudiant@pingcortex.com"
                         icon={<EmailIcon />}
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
                     />
                     <SoftInput
                         label="Mot de passe"
+                        name="password"
                         type="password"
                         placeholder="••••••••"
                         icon={<LockIcon />}
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
                     />
 
                     <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
@@ -53,10 +102,10 @@ export const LoginForm = () => {
                         </a>
                     </div>
 
-                    <GlowButton variant="primary" isGlowing className="w-full mt-2">
-                        Se connecter
+                    <GlowButton variant="primary" isGlowing className="w-full mt-2" disabled={isLoading}>
+                        {isLoading ? "Connexion en cours..." : "Se connecter"}
                     </GlowButton>
-                </div>
+                </form>
 
                 <div className="text-center pt-4 border-t border-slate-300/40 dark:border-slate-800/40">
                     <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
