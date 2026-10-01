@@ -1,4 +1,4 @@
-import { createApiClient, PingCortexApi, tokenStore } from "@pingcortex/api-client";
+import { createApiClient, PingCortexApi } from "@pingcortex/api-client";
 
 const httpClient = createApiClient({
     baseUrl: import.meta.env.VITE_API_URL,

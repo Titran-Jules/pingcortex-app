@@ -20,7 +20,7 @@ export const LoginForm = () => {
         email: "",
         password: ""
     });
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,13 +38,13 @@ export const LoginForm = () => {
             setErrorMessage("Veuillez remplir tous les champs obligatoire.");
             return;
         }
-        setIsLoading(true);
+        setIsSubmitting(true);
         try {
             await api.auth.login(formData);
         } catch (error) {
             setErrorMessage("Identifiants incorrects. Veuillez réessayer.");
         } finally {
-            setIsLoading(false);
+            setIsSubmitting(false);
         }
     };
 
@@ -102,8 +102,8 @@ export const LoginForm = () => {
                         </a>
                     </div>
 
-                    <GlowButton variant="primary" isGlowing className="w-full mt-2" disabled={isLoading}>
-                        {isLoading ? "Connexion en cours..." : "Se connecter"}
+                    <GlowButton variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting}>
+                        {isSubmitting ? "Connexion en cours..." : "Se connecter"}
                     </GlowButton>
                 </form>
 
