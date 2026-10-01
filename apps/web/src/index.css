@@ -4,3 +4,12 @@
 body {
   @apply bg-neu-bg dark:bg-neu-dark-bg text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300;
 }
+
+@theme {
+  --color-core-bg: #F9FAFB;
+  --color-container-bg: #FFFFFF;
+  --color-primary: #22D3EE;
+  --color-secondary: #6366F1;
+  --color-main-text: #1F2937;
+  --color-sub-text: #4B5563;
+}

@@ -1,6 +1,6 @@
-import axios, {AxiosInstance, AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, {type AxiosInstance, AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { tokenStore } from './tokenStore';
-import { RefreshResponse, ErrorResponse } from '@pingcortex/shared-types';
+import type { RefreshResponse, ErrorResponse } from '@pingcortex/shared-types';
 
 export interface ApiClientConfig {
     baseUrl?: string;

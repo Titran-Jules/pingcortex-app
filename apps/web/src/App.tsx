@@ -1,7 +1,9 @@
+import { RegisterPage } from "./pages/RegisterPage";
+
 export default function App() {
   return (
     <>
-      <div className="text-blue-400">Hello, World!</div>
+      <RegisterPage/>
     </>
   );
 }

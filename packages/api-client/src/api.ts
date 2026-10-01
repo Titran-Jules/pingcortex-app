@@ -1,8 +1,11 @@
-import { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse } from "@pingcortex/shared-types";
-import { AxiosInstance } from "axios";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse } from "@pingcortex/shared-types";
+import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
-    constructor(private client: AxiosInstance) {}
+    private client: AxiosInstance;
+    constructor(client: AxiosInstance) {
+        this.client = client;
+    }
 
     auth = {
         login: (credentials: LoginRequest) =>

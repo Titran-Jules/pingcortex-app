@@ -200,6 +200,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@pingcortex/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
       '@pingcortex/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
