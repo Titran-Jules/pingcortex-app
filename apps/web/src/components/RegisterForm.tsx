@@ -46,12 +46,6 @@ export const RegisterForm = () => {
         lastName: "",
         level: "",
     });
-    const [submitData, setSubmitData] = useState<UserRegister>({
-        email: "",
-        password: "",
-        name: "",
-        level: "",
-    });
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [errors, setErrors] = useState<Partial<Record<keyof RegisterFormData, string>>>({});
     const [step, setStep] = useState<number>(1);
