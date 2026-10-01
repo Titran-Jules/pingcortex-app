@@ -164,10 +164,10 @@ export const RegisterForm = () => {
 
                 <NeumorphicCard className="lg:col-span-8 flex flex-col gap-6 p-6 sm:p-8">
                     <div className="flex items-center gap-4 border-b border-slate-300/40 dark:border-slate-800/40 pb-6">
-                        <img src="/logo.png" alt="Logo PingCortex" className="w-12 h-12 object-contain" />
+                        <img src="/logo.png" alt="Logo PingCortex" className="w-16 h-16 object-contain" />
                         <div>
-                            <h2 className="text-2xl font-extrabold tracking-tight text-slate-800 dark:text-white">
-                                Ping<span className="text-brand-500">Cortex</span>
+                            <h2 className="text-2xl font-extrabold tracking-tight text-primary dark:text-white">
+                                Ping<span className="text-blue-950">Cortex</span>
                             </h2>
                             <p className="text-xs text-slate-500 dark:text-slate-400">Plateforme de tutorat intelligent par IA</p>
                         </div>
