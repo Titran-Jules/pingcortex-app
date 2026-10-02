@@ -1,9 +1,6 @@
-import { RegisterPage } from "./pages/RegisterPage";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
 
 export default function App() {
-  return (
-    <>
-      <RegisterPage/>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }

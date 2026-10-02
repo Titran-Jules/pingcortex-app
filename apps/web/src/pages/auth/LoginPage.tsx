@@ -1,6 +1,7 @@
+import { NavLink } from "react-router-dom";
 import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
-import type { LoginRequest } from "../../../../packages/shared-types/src";
-import { api } from "../api/api";
+import type { LoginRequest } from "@pingcortex/shared-types";
+import { api } from "../../api/api";
 import { useState } from "react";
 
 const EmailIcon = () => (
@@ -15,7 +16,7 @@ const LockIcon = () => (
     </svg>
 );
 
-export const LoginForm = () => {
+export const LoginPage = () => {
     const [formData, setFormData] = useState<LoginRequest>({
         email: "",
         password: ""
@@ -110,9 +111,9 @@ export const LoginForm = () => {
                 <div className="text-center pt-4 border-t border-slate-300/40 dark:border-slate-800/40">
                     <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                         Vous n'avez pas de compte ?{" "}
-                        <a href="#register" className="text-brand-500 font-semibold hover:underline">
+                        <NavLink to="/register" className="text-brand-500 font-semibold hover:underline">
                             S'inscrire
-                        </a>
+                        </NavLink>
                     </p>
                 </div>
             </NeumorphicCard>
