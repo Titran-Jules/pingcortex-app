@@ -1,4 +1,4 @@
-import { UUID } from "./uuid";
+import type { UUID } from "./uuid";
 
 export type ContentType = 'SUMMARY' | 'NOTES' | 'PDF';
 

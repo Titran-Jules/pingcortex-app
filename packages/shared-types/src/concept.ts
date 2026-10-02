@@ -1,4 +1,4 @@
-import { UUID } from "./uuid";
+import type { UUID } from "./uuid";
 
 export type CoverageStatus = 'NOT_COVERAGE' | 'ANTICIPATED_COVERED' | 'COVERED';
 

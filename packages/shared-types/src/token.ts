@@ -1,4 +1,4 @@
-import { UUID } from "./uuid";
+import type { UUID } from "./uuid";
 
 export interface JwtPayload {
     id: UUID;
