@@ -1,6 +1,6 @@
 import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
-import type { LoginRequest } from "../../../../packages/shared-types/src";
-import { api } from "../api/api";
+import type { LoginRequest } from "@pingcortex/shared-types";
+import { api } from "../../api/api";
 import { useState } from "react";
 
 const EmailIcon = () => (
@@ -15,7 +15,7 @@ const LockIcon = () => (
     </svg>
 );
 
-export const LoginForm = () => {
+export const LoginPage = () => {
     const [formData, setFormData] = useState<LoginRequest>({
         email: "",
         password: ""

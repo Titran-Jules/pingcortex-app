@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 import type { UserRegister } from "@pingcortex/shared-types";
 import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
 
@@ -37,7 +37,7 @@ const AcademicIcon = () => (
     </svg>
 );
 
-export const RegisterForm = () => {
+export const RegisterPage = () => {
     const [formData, setFormData] = useState<RegisterFormData>({
         email: "",
         password: "",
