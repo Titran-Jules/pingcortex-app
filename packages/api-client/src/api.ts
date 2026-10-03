@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive } from "@pingcortex/shared-types";
 import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
@@ -27,5 +27,11 @@ export class PingCortexApi {
 
         addApiKey: (data: ApiKeyCreate) =>
             this.client.post<ApiKeyResponse>('/users/me/api-keys', data).then((res) => res.data),
-    }
+
+        toggleApiKeyActive: (apiKeyId: string, data: ApiKeyActive) =>
+            this.client.patch<ApiKeyResponse>(`/users/me/api-keys/${apiKeyId}`, data).then((res) => res.data),
+
+        deleteApiKey: (apiKeyId: string) =>
+            this.client.delete<void>(`/users/me/api-keys/${apiKeyId}`),
+    };
 }
