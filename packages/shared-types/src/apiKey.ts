@@ -1,13 +1,15 @@
 import type { UUID } from "./uuid";
 
+export type Provider = 'GEMINI' | 'ANTHROPIC' | 'OPENAI';
+
 export interface ApiKeyCreate {
-    provider: string;
+    provider: Provider;
     apiKey: string;
 }
 
 export interface ApiKeyResponse {
     id: UUID;
-    provider: string;
+    provider: Provider;
     isActive: boolean;
     createdAt: string;
 }
