@@ -1,6 +1,6 @@
 import type { UUID } from "./uuid";
 
-export type CoverageStatus = 'NOT_COVERAGE' | 'ANTICIPATED_COVERED' | 'COVERED';
+export type CoverageStatus = 'NOT_COVERED' | 'ANTICIPATED_COVERED' | 'COVERED';
 
 export interface ConceptResponse {
     id: UUID;
