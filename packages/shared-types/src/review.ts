@@ -1,7 +1,7 @@
 import type { UUID } from "./uuid";
 
 export interface ReviewDueResponse {
-    coneptId: UUID;
+    conceptId: UUID;
     conceptName: string;
     courseId: UUID;
     courseTitle: string;

@@ -11,7 +11,7 @@ export interface FeynmanCriterionEvaluation {
 }
 
 export interface FeynmanEvaluation {
-    criteria: FeynmanCriterionEvaluation;
+    criteria: FeynmanCriterionEvaluation[];
     overallFeedback: string;
     misconceptions: string[];
 }
