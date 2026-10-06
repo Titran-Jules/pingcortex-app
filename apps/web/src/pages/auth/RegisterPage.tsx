@@ -97,10 +97,10 @@ export const RegisterPage = () => {
     }
 
     const userRegister = (data: RegisterFormData): UserRegister => {
-        let name = data.firstName + " " + data.lastName;
-        let email = data.email;
-        let password = data.password;
-        let level = data.level;
+        const name = data.firstName + " " + data.lastName;
+        const email = data.email;
+        const password = data.password;
+        const level = data.level;
         return {
             "email": email,
             "name": name,
@@ -115,7 +115,7 @@ export const RegisterPage = () => {
         setIsSubmitting(true);
         try {
             await api.auth.register(userRegister(formData));
-        } catch (error) {
+        } catch {
             alert("Erreur lors de l'inscription");
         } finally {
             setIsSubmitting(false);

@@ -42,7 +42,7 @@ export const LoginPage = () => {
         setIsSubmitting(true);
         try {
             await api.auth.login(formData);
-        } catch (error) {
+        } catch {
             setErrorMessage("Identifiants incorrects. Veuillez réessayer.");
         } finally {
             setIsSubmitting(false);
