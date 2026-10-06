@@ -1,4 +1,4 @@
-import { JwtPayload } from "./token";
+import type { JwtPayload } from "./token";
 
 export interface LoginRequest {
     email: string;
