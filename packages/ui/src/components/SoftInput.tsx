@@ -12,17 +12,17 @@ export const SoftInput = React.forwardRef<HTMLInputElement, SoftInputProps>(
         return (
         <div className="w-full flex flex-col gap-1.5">
             {label && (
-                <label className="text-sm font-medium text-slate-600 dark:text-slate-300 ml-1">
+                <label className="text-sm font-medium text-sub-text ml-1">
                     {label}
                 </label>
             )}
             <div className="relative flex items-center">
-                {icon && <div className="absolute left-4 text-slate-400">{icon}</div>}
+                {icon && <div className="absolute left-4 text-sub-text">{icon}</div>}
                 <input
                     ref={ref}
                     className={cn(
-                        'w-full py-3 px-4 rounded-neu-sm bg-neu-bg dark:bg-neu-dark-bg text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none transition-all duration-200',
-                        'shadow-neu-pressed dark:shadow-neu-dark-pressed focus:ring-2 focus:ring-brand-500/50',
+                        'w-full py-3 px-4 rounded-neu-sm bg-core-bg text-sub-text placeholder-on-secondary focus:outline-none transition-all duration-200',
+                        'shadow-neu-pressed focus:ring-2 focus:ring-secondary/50',
                         icon && 'pl-11',
                         error && 'border border-rose-500/50',
                         className

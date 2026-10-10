@@ -123,7 +123,7 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-neu-bg dark:bg-neu-dark-bg flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="min-h-screen bg-core-bg flex items-center justify-center p-4 sm:p-6 lg:p-8">
             <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-4 flex lg:flex-col justify-between lg:justify-center gap-25 p-4">
                     {stepsDetails.map((s, index) => {
@@ -135,27 +135,27 @@ export const RegisterPage = () => {
                                 {index < stepsDetails.length - 1 && (
                                     <div
                                         className={`hidden lg:block absolute left-6 top-12 w-0.5 h-25 transition-colors duration-300 ${
-                                            isCompleted ? "bg-brand-500" : "bg-slate-300 dark:bg-slate-800"
+                                            isCompleted ? "bg-emerald-500" : "bg-sub-text/20"
                                         }`}
                                     />
                                 )}
                                 <div
                                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
                                         isActive
-                                        ? "bg-brand-500 text-white shadow-glow-primary scale-110"
+                                        ? "bg-secondary text-on-secondary shadow-glow-primary scale-110"
                                         : isCompleted
-                                        ? "bg-emerald-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat"
-                                        : "bg-neu-bg dark:bg-neu-dark-bg text-slate-400 shadow-neu-pressed dark:shadow-neu-dark-pressed"
+                                        ? "bg-emerald-500 text-on-secondary shadow-neu-flat"
+                                        : "bg-core-bg text-sub-text shadow-neu-pressed"
                                     }`}
                                 >
                                 {isCompleted ? "✓" : s.num}
                             </div>
 
                         <div className="hidden lg:flex flex-col">
-                            <span className={`text-sm font-semibold ${isActive ? "text-brand-500 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`}>
+                            <span className={`text-sm font-semibold ${isActive ? "text-secondary" : "text-sub-text"}`}>
                                 {s.title}
                             </span>
-                            <span className="text-xs text-slate-400">{s.desc}</span>
+                            <span className="text-xs text-sub-text">{s.desc}</span>
                         </div>
                     </div>
                     );
@@ -163,13 +163,13 @@ export const RegisterPage = () => {
                 </div>
 
                 <NeumorphicCard className="lg:col-span-8 flex flex-col gap-6 p-6 sm:p-8">
-                    <div className="flex items-center gap-4 border-b border-slate-300/40 dark:border-slate-800/40 pb-6">
+                    <div className="flex items-center gap-4 border-b border-on-primary/10 pb-6">
                         <img src="/logo.png" alt="Logo PingCortex" className="w-16 h-16 object-contain" />
                         <div>
-                            <h2 className="text-2xl font-extrabold tracking-tight text-primary dark:text-white">
-                                Ping<span className="text-blue-950">Cortex</span>
+                            <h2 className="text-2xl font-extrabold tracking-tight text-primary">
+                                Ping<span className="text-main-text">Cortex</span>
                             </h2>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">Plateforme de tutorat intelligent par IA</p>
+                            <p className="text-xs text-sub-text">Plateforme de tutorat intelligent par IA</p>
                         </div>
                     </div>
 
@@ -247,19 +247,19 @@ export const RegisterPage = () => {
 
                     {step === 3 && (
                         <div className="flex flex-col gap-4 text-center py-4">
-                        <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl font-bold shadow-neu-pressed dark:shadow-neu-dark-pressed">
+                        <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl font-bold shadow-neu-pressed">
                             ✓
                         </div>
-                        <h4 className="text-lg font-semibold text-slate-800 dark:text-white">Récapitulatif des informations</h4>
-                        <div className="text-left bg-neu-bg dark:bg-neu-dark-bg p-4 rounded-neu-sm shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs sm:text-sm space-y-2">
-                            <p><strong className="text-slate-600 dark:text-slate-400">Email :</strong> {formData.email}</p>
-                            <p><strong className="text-slate-600 dark:text-slate-400">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
-                            <p><strong className="text-slate-600 dark:text-slate-400">Parcours :</strong> {formData.level}</p>
+                        <h4 className="text-lg font-semibold text-sub-text">Récapitulatif des informations</h4>
+                        <div className="text-left bg-core-bg p-4 rounded-neu-sm shadow-neu-pressed text-xs sm:text-sm space-y-2">
+                            <p><strong className="text-sub-text">Email :</strong> {formData.email}</p>
+                            <p><strong className="text-sub-text">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
+                            <p><strong className="text-sub-text">Parcours :</strong> {formData.level}</p>
                         </div>
                         </div>
                     )}
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-300/40 dark:border-slate-800/40">
+                    <div className="flex items-center justify-between pt-4 border-t border-on-primary/10 dark:border-slate-800/40">
                         {step > 1 ? (
                         <GlowButton variant="secondary" onClick={() => setStep(step - 1)}>
                             Précédent

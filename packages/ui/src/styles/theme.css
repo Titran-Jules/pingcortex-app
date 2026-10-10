@@ -1,0 +1,56 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    --on-primary: #1F2937;
+    --on-secondary: #FFFFFF;
+    --core-bg: #F9FAFB;
+    --container-bg: #FFFFFF;
+    --primary: #22D3EE;
+    --primary-strong: #0E7490;
+    --secondary: #6366F1;
+    --main-text: #1F2937;
+    --sub-text: #4B5563;
+    --shadow-dark: #d5dbe5;
+    --shadow-light: #ffffff;
+}
+
+.dark {
+    --on-primary: #111827;
+    --on-secondary: #111827;
+    --core-bg: #111827;
+    --container-bg: #1F2937;
+    --primary: #00F5FF;
+    --primary-strong: #00F5FF;
+    --secondary: #818CF8;
+    --main-text: #E5E7EB;
+    --sub-text: #9CA3AF;
+    --shadow-dark: #070a12;
+    --shadow-light: #182238;
+}
+
+@theme inline {
+    --color-on-primary: var(--on-primary);
+    --color-on-secondary: var(--on-secondary);
+    --color-core-bg: var(--core-bg);
+    --color-container-bg: var(--container-bg);
+    --color-primary: var(--primary);
+    --color-primary-strong: var(--primary-strong);
+    --color-secondary: var(--secondary);
+    --color-main-text: var(--main-text);
+    --color-sub-text: var(--sub-text);
+    
+    --shadow-neu-flat: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+    --shadow-neu-pressed: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+
+    --shadow-neu-flat-sm: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    --shadow-neu-pressed-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    
+    --shadow-glow-primary: 0 0 20px color-mix(in srgb, var(--primary) 45%, transparent);
+    --shadow-glow-secondary: 0 6 16px color-mix(in srgb, var(--secondary) 35%, transparent);
+    --shadow-glow-success: 0 0 20px color-mix(in srgb, #22C55E 45%, transparent);
+    --shadow-glow-warning: 0 0 20px color-mix(in srgb, #EAB308 45%, transparent);
+
+    --radius-neu-sm: 12px;
+    --radius-neu-md: 20px;
+    --radius-neu-lg: 28px;
+}
