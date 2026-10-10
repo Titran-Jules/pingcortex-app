@@ -46,7 +46,7 @@ export const Sidebar: React.FC = () => {
                     {!isCollapsed && (
                         <div className="flex flex-col leading-none">
                             <h2 className="text-xl font-black tracking-tight text-main-text">
-                                <span className="text-[#00c2ff]">Ping</span>Cortex
+                                <span className="text-primary">Ping</span>Cortex
                             </h2>
                             <span className="text-[10px] text-sub-text font-medium tracking-wide mt-1">
                                 Espace d'apprentissage

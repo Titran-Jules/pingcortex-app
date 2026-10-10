@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
                             </span>
                         </div>
                         <div className="mt-3 flex items-start gap-3 p-2 rounded-xl bg-core-bg shadow-neu-pressed-sm">
-                            <Sparkles size={16} className="text-[#00c2ff] shrink-0 mt-0.5" />
+                            <Sparkles size={16} className="text-primary shrink-0 mt-0.5" />
                             <div className="text-xs">
                                 <p className="font-bold text-sub-text">Rappel Répétition Espacée</p>
                                 <p className="text-sub-text text-[11px] mt-0.5">5 flashcards de Mathématiques à réviser aujourd'hui.</p>
