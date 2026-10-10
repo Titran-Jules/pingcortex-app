@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
                     </button>
 
                     {showNotifications && (
-                        <div className="absolute right-0 mt-3 w-80 rounded-2xl bg-core-bg p-4 shadow-neu-flat z-50 border border-white/40">
+                        <div className="absolute right-0 mt-3 w-80 rounded-2xl bg-core-bg p-4 shadow-neu-flat z-50 border border-main-text/10">
                         <div className="flex items-center justify-between pb-3 border-b border-slate-200/60">
                             <span className="text-xs font-extrabold text-main-text">
                             Notifications
@@ -100,7 +100,7 @@ export const Header: React.FC = () => {
                     </button>
 
                     {showProfileMenu && (
-                        <div className="absolute right-0 mt-3 w-48 rounded-2xl bg-core-bg p-2 shadow-neu-flat z-50 border border-white/40 flex flex-col gap-1">
+                        <div className="absolute right-0 mt-3 w-48 rounded-2xl bg-core-bg p-2 shadow-neu-flat z-50 border border-main-text/10 flex flex-col gap-1">
                             <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-sub-text hover:text-secondary rounded-xl transition-all hover:shadow-neu-pressed-sm">
                                 <Settings size={14} /> Mon Profil
                             </button>
