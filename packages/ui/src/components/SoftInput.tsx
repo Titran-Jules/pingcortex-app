@@ -21,7 +21,7 @@ export const SoftInput = React.forwardRef<HTMLInputElement, SoftInputProps>(
                 <input
                     ref={ref}
                     className={cn(
-                        'w-full py-3 px-4 rounded-neu-sm bg-core-bg text-sub-text placeholder-slate-400 focus:outline-none transition-all duration-200',
+                        'w-full py-3 px-4 rounded-neu-sm bg-core-bg text-sub-text placeholder-on-secondary focus:outline-none transition-all duration-200',
                         'shadow-neu-pressed focus:ring-2 focus:ring-secondary/50',
                         icon && 'pl-11',
                         error && 'border border-rose-500/50',

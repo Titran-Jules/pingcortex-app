@@ -66,7 +66,7 @@ export const Sidebar: React.FC = () => {
                                 className={({ isActive }) =>
                                     `flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
                                     isActive
-                                    ? 'bg-secondary text-white shadow-glow-secondary'
+                                    ? 'bg-secondary text-on-secondary shadow-glow-secondary'
                                     : 'text-sub-text hover:text-main-text hover:shadow-neu-pressed-sm'
                                 } ${isCollapsed ? 'justify-center' : ''}`
                                 }
@@ -86,7 +86,7 @@ export const Sidebar: React.FC = () => {
             >
                 {!isCollapsed && (
                     <div className="flex items-center gap-2.5 overflow-hidden">
-                        <div className="h-8 w-8 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                        <div className="h-8 w-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
                             E
                         </div>
                         <div className="flex flex-col truncate">

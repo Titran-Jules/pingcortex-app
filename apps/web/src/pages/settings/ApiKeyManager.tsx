@@ -90,7 +90,7 @@ export const ApiKeyManager: React.FC = () => {
             return { label: 'OpenAI (GPT)', color: 'text-emerald-600 bg-emerald-500/10' };
         case 'gemini':
         default:
-            return { label: 'Google Gemini', color: 'text-indigo-600 bg-indigo-500/10' };
+            return { label: 'Google Gemini', color: 'text-secondary bg-secondary/10' };
         }
     };
 
@@ -111,7 +111,7 @@ export const ApiKeyManager: React.FC = () => {
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-neu-md bg-secondary text-white text-xs font-bold shadow-glow-primary active:scale-95 transition-all"
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-neu-md bg-secondary text-on-secondary text-xs font-bold shadow-glow-primary active:scale-95 transition-all"
         >
           <Plus size={18} /> Ajouter une clé
         </button>
@@ -134,7 +134,7 @@ export const ApiKeyManager: React.FC = () => {
           return (
             <div
               key={item.id}
-              className={`p-5 rounded-neu-md bg-core-bg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-white/20 dark:border-slate-800/50 ${
+              className={`p-5 rounded-neu-md bg-core-bg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-on-secondary/20 ${
                 item.isActive
                   ? 'shadow-neu-flat ring-2 ring-secondary/40'
                   : 'shadow-neu-pressed opacity-75'
@@ -168,13 +168,13 @@ export const ApiKeyManager: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200/50 dark:border-slate-800/50">
+              <div className="flex items-center justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-on-primary/50">
                 <button
                   onClick={() => handleToggleActive(item.id, item.isActive)}
                   title={item.isActive ? 'Désactiver la clé' : 'Activer cette clé'}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-neu-sm text-xs font-bold transition-all ${
                     item.isActive
-                      ? 'bg-emerald-500 text-white shadow-glow-success'
+                      ? 'bg-emerald-500 text-on-secondary shadow-glow-success'
                       : 'bg-core-bg text-sub-text shadow-neu-flat'
                   }`}
                 >
@@ -196,8 +196,8 @@ export const ApiKeyManager: React.FC = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md p-6 rounded-neu-lg bg-core-bg shadow-neu-flat border border-white/30 dark:border-slate-800 space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-secondary/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md p-6 rounded-neu-lg bg-core-bg shadow-neu-flat border border-on-secondary/30 space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-black text-sub-text flex items-center gap-2">
                 <KeyRound size={18} className="text-secondary" /> Ajouter une clé d'API
@@ -255,7 +255,7 @@ export const ApiKeyManager: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-neu-sm bg-secondary text-white font-bold text-xs shadow-glow-primary disabled:opacity-50 transition-all"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-neu-sm bg-secondary text-on-secondary font-bold text-xs shadow-glow-primary disabled:opacity-50 transition-all"
                 >
                   {isSubmitting ? (
                     <Loader2 size={16} className="animate-spin" />

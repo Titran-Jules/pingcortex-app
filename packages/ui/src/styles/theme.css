@@ -1,6 +1,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+    --on-primary: #1F2937;
+    --on-secondary: #FFFFFF;
     --core-bg: #F9FAFB;
     --container-bg: #FFFFFF;
     --primary: #22D3EE;
@@ -13,6 +15,8 @@
 }
 
 .dark {
+    --on-primary: #111827;
+    --on-secondary: #111827;
     --core-bg: #111827;
     --container-bg: #1F2937;
     --primary: #00F5FF;
@@ -25,6 +29,8 @@
 }
 
 @theme inline {
+    --color-on-primary: var(--on-primary);
+    --color-on-secondary: var(--on-secondary);
     --color-core-bg: var(--core-bg);
     --color-container-bg: var(--container-bg);
     --color-primary: var(--primary);

@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
                         aria-label="Notifications"
                     >
                         <Bell size={20} />
-                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-white shadow-[0_2px_6px_rgba(92,97,244,0.4)]">
+                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-on-secondary shadow-neu-flat-sm">
                             1
                         </span>
                     </button>
@@ -85,7 +85,7 @@ export const Header: React.FC = () => {
                             : 'shadow-neu-flat-sm'
                         }`}
                     >
-                        <div className="h-8 w-8 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                        <div className="h-8 w-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shadow-sm">
                             E
                         </div>
                         <div className="flex flex-col text-left">

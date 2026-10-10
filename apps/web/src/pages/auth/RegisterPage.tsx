@@ -142,9 +142,9 @@ export const RegisterPage = () => {
                                 <div
                                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
                                         isActive
-                                        ? "bg-secondary text-white shadow-glow-primary scale-110"
+                                        ? "bg-secondary text-on-secondary shadow-glow-primary scale-110"
                                         : isCompleted
-                                        ? "bg-emerald-500 text-white shadow-neu-flat"
+                                        ? "bg-emerald-500 text-on-secondary shadow-neu-flat"
                                         : "bg-core-bg text-sub-text shadow-neu-pressed"
                                     }`}
                                 >
@@ -163,11 +163,11 @@ export const RegisterPage = () => {
                 </div>
 
                 <NeumorphicCard className="lg:col-span-8 flex flex-col gap-6 p-6 sm:p-8">
-                    <div className="flex items-center gap-4 border-b border-slate-300/40 dark:border-slate-800/40 pb-6">
+                    <div className="flex items-center gap-4 border-b border-on-primary/10 pb-6">
                         <img src="/logo.png" alt="Logo PingCortex" className="w-16 h-16 object-contain" />
                         <div>
-                            <h2 className="text-2xl font-extrabold tracking-tight text-primary dark:text-white">
-                                Ping<span className="text-blue-950">Cortex</span>
+                            <h2 className="text-2xl font-extrabold tracking-tight text-primary">
+                                Ping<span className="text-main-text">Cortex</span>
                             </h2>
                             <p className="text-xs text-sub-text">Plateforme de tutorat intelligent par IA</p>
                         </div>
@@ -259,7 +259,7 @@ export const RegisterPage = () => {
                         </div>
                     )}
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-300/40 dark:border-slate-800/40">
+                    <div className="flex items-center justify-between pt-4 border-t border-on-primary/10 dark:border-slate-800/40">
                         {step > 1 ? (
                         <GlowButton variant="secondary" onClick={() => setStep(step - 1)}>
                             Précédent
