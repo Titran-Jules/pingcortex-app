@@ -9,7 +9,8 @@
     "dev": "turbo run dev",
     "check-types": "turbo run check-types",
     "clean": "turbo run clean",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "turbo run lint",
+    "test": "echo \"No test specified yet\""
   },
   "keywords": [],
   "author": "",
