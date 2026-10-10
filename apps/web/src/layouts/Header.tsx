@@ -40,13 +40,13 @@ export const Header: React.FC = () => {
                         }}
                         className={`relative flex h-11 w-11 items-center justify-center rounded-2xl bg-container-bg text-sub-text transition-all ${
                             showNotifications
-                            ? 'shadow-neu-pressed-sm text-[#5c61f4]'
-                            : 'shadow-neu-flat-sm hover:text-[#5c61f4]'
+                            ? 'shadow-neu-pressed-sm text-secondary'
+                            : 'shadow-neu-flat-sm hover:text-secondary'
                         }`}
                         aria-label="Notifications"
                     >
                         <Bell size={20} />
-                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#5c61f4] text-[10px] font-bold text-white shadow-[0_2px_6px_rgba(92,97,244,0.4)]">
+                        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-white shadow-[0_2px_6px_rgba(92,97,244,0.4)]">
                             1
                         </span>
                     </button>
@@ -57,7 +57,7 @@ export const Header: React.FC = () => {
                             <span className="text-xs font-extrabold text-main-text">
                             Notifications
                             </span>
-                            <span className="text-[10px] bg-indigo-100 text-[#5c61f4] font-bold px-2 py-0.5 rounded-full">
+                            <span className="text-[10px] bg-indigo-100 text-secondary font-bold px-2 py-0.5 rounded-full">
                             1 nouvelle
                             </span>
                         </div>
@@ -85,7 +85,7 @@ export const Header: React.FC = () => {
                             : 'shadow-neu-flat-sm'
                         }`}
                     >
-                        <div className="h-8 w-8 rounded-full bg-[#5c61f4] text-white flex items-center justify-center font-bold text-xs shadow-[0_2px_6px_rgba(92,97,244,0.3)]">
+                        <div className="h-8 w-8 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xs shadow-[0_2px_6px_rgba(92,97,244,0.3)]">
                             E
                         </div>
                         <div className="flex flex-col text-left">
@@ -101,7 +101,7 @@ export const Header: React.FC = () => {
 
                     {showProfileMenu && (
                         <div className="absolute right-0 mt-3 w-48 rounded-2xl bg-core-bg p-2 shadow-neu-flat z-50 border border-white/40 flex flex-col gap-1">
-                            <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-sub-text hover:text-[#5c61f4] rounded-xl transition-all hover:shadow-neu-pressed-sm">
+                            <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-sub-text hover:text-secondary rounded-xl transition-all hover:shadow-neu-pressed-sm">
                                 <Settings size={14} /> Mon Profil
                             </button>
                             <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-50 rounded-xl transition-all">
