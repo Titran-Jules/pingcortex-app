@@ -40,6 +40,7 @@
     --shadow-neu-pressed-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
     
     --shadow-glow-primary: 0 0 20px color-mix(in srgb, var(--primary) 45%, transparent);
+    --shadow-glow-secondary: 0 0 20px color-mix(in srgb, var(--secondary) 45%, transparent);
     --shadow-glow-success: 0 0 20px color-mix(in srgb, #22C55E 45%, transparent);
     --shadow-glow-warning: 0 0 20px color-mix(in srgb, #EAB308 45%, transparent);
 

@@ -27,13 +27,13 @@ export const ToggleTheme: React.FC<{className?: string}> = ({ className }) => {
             onClick={toggleTheme}
             aria-label="Changer de thème"
             className={cn(
-                'w-14 h-8 flex items-center rounded-full p-1 transition-all duration-300 bg-neu-bg dark:bg-neu-dark-bg shadow-neu-pressed dark:shadow-neu-dark-pressed',
+                'w-14 h-8 flex items-center rounded-full p-1 transition-all duration-300 bg-container-bg shadow-neu-pressed',
                 className
             )}
         >
             <div
                 className={cn(
-                    'w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300 shadow-neu-flat dark:shadow-neu-dark-flat bg-neu-bg dark:bg-neu-dark-bg text-xs',
+                    'w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300 shadow-neu-flat-sm bg-neu-bg text-xs',
                     isDark ? 'translate-x-6 text-amber-400' : 'translate-x-0 text-amber-500'
                 )}
             >

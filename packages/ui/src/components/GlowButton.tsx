@@ -27,7 +27,7 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
             'bg-rose-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed hover:bg-rose-600',
     };
 
-    const glowStyles = isGlowing ? 'shadow-glow-primary' : '';
+    const glowStyles = isGlowing ? 'shadow-glow-secondary' : '';
 
     return (
         <button
