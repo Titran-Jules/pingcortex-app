@@ -13,9 +13,9 @@ export const NeumorphicCard: React.FC<NeumorphicCardProps> = ({
     ...props
 }) => {
     const variants = {
-        flat: 'shadow-neu-flat dark:shadow-neu-dark-flat bg-neu-bg dark:bg-neu-dark-bg',
-        pressed: 'shadow-neu-pressed dark:shadow-neu-dark-pressed bg-neu-bg dark:bg-neu-dark-bg',
-        convex: 'shadow-neu-flat dark:shadow-neu-dark-flat bg-gradient-to-br from-white to-neu-bg dark:from-slate-800 dark:to-neu-dark-bg',
+        flat: 'shadow-neu-flat bg-core-bg',
+        pressed: 'shadow-neu-pressed bg-core-bg',
+        convex: 'shadow-neu-flat bg-gradient-to-br from-white to-core-bg',
     };
 
     return (

@@ -40,16 +40,11 @@
     --shadow-neu-pressed-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
     
     --shadow-glow-primary: 0 0 20px color-mix(in srgb, var(--primary) 45%, transparent);
-    --shadow-glow-secondary: 0 0 20px color-mix(in srgb, var(--secondary) 45%, transparent);
+    --shadow-glow-secondary: 0 6 16px color-mix(in srgb, var(--secondary) 35%, transparent);
     --shadow-glow-success: 0 0 20px color-mix(in srgb, #22C55E 45%, transparent);
     --shadow-glow-warning: 0 0 20px color-mix(in srgb, #EAB308 45%, transparent);
 
     --radius-neu-sm: 12px;
     --radius-neu-md: 20px;
     --radius-neu-lg: 28px;
-
-    --color-neu-bg: var(--core-bg);
-    --color-neu-dark-bg: var(--core-bg);
-    --color-brand-500: var(--secondary);
-    --color-brand-600: color-mix(in srgb, var(--secondary) 85%, black);
 }

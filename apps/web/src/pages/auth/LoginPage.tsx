@@ -50,10 +50,10 @@ export const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-neu-bg dark:bg-neu-dark-bg flex items-center justify-center p-4">
+        <div className="min-h-screen bg-core-bg flex items-center justify-center p-4">
             <NeumorphicCard className="w-full max-w-md p-8 flex flex-col gap-6">
                 <div className="flex flex-col items-center text-center gap-2">
-                    <div className="w-25 h-25 rounded-full flex items-center justify-center bg-neu-bg dark:bg-neu-dark-bg shadow-neu-flat dark:shadow-neu-dark-flat p-3 mb-2">
+                    <div className="w-25 h-25 rounded-full flex items-center justify-center bg-core-bg shadow-neu-flat p-3 mb-2">
                         <img className="w-full h-full object-contain" src="/logo.png" alt="Logo PingCortex" />
                     </div>
                     <h2 className="text-3xl font-extrabold tracking-tight text-primary dark:text-white">
@@ -94,11 +94,11 @@ export const LoginPage = () => {
                         <label className="flex items-center gap-2 text-sub-text cursor-pointer select-none">
                             <input
                                 type="checkbox"
-                                className="w-4 h-4 rounded border-slate-300 text-brand-500 focus:ring-brand-500/50 accent-brand-500 cursor-pointer"
+                                className="w-4 h-4 rounded border-slate-300 text-secondary focus:ring-secondary/50 accent-secondary cursor-pointer"
                             />
                             Se souvenir de moi
                         </label>
-                        <a href="#forgot" className="text-brand-500 hover:text-brand-600 font-medium transition-colors">
+                        <a href="#forgot" className="text-secondary/90 hover:text-secondary font-medium transition-colors">
                             Mot de passe oublié ?
                         </a>
                     </div>
@@ -111,7 +111,7 @@ export const LoginPage = () => {
                 <div className="text-center pt-4 border-t border-slate-300/40 dark:border-slate-800/40">
                     <p className="text-xs sm:text-sm text-sub-text">
                         Vous n'avez pas de compte ?{" "}
-                        <NavLink to="/register" className="text-brand-500 font-semibold hover:underline">
+                        <NavLink to="/register" className="text-secondary font-semibold hover:underline">
                             S'inscrire
                         </NavLink>
                     </p>

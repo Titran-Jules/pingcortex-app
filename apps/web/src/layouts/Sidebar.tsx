@@ -22,13 +22,13 @@ export const Sidebar: React.FC = () => {
 
     return (
         <aside
-            className={`relative bg-core-bg flex flex-col justify-between p-5 transition-all duration-300 ease-in-out border-r border-slate-200/50 dark:border-slate-800 ${
+            className={`relative bg-core-bg flex flex-col justify-between p-5 transition-all duration-300 ease-in-out border-r border-main-text/10 ${
                     isCollapsed ? 'w-24' : 'w-64'
             }`}
         >
             <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="absolute -right-3.5 top-9 z-30 flex h-6 w-6 items-center justify-center rounded-full bg-container-bg text-sub-text shadow-neu-flat-sm transition-all hover:text-indigo-600 dark:shadow-none"
+                className="absolute -right-3.5 top-9 z-30 flex h-6 w-6 items-center justify-center rounded-full bg-container-bg text-sub-text shadow-neu-flat-sm transition-all hover:text-secondary"
                 aria-label={isCollapsed ? 'Déplier la barre latérale' : 'Réduire la barre latérale'}
             >
                 {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
@@ -36,7 +36,7 @@ export const Sidebar: React.FC = () => {
         
             <div className="flex flex-col gap-8">
                 <div className="flex items-center gap-3 py-1 pl-1 overflow-hidden rounded-full">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-neu-bg dark:bg-neu-dark-bg shadow-neu-flat dark:shadow-neu-dark-flat p-2">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-container-bg shadow-neu-flat-sm p-2">
                         <img
                             src="/logo.png"
                             alt="Logo PingCortex"
@@ -66,8 +66,8 @@ export const Sidebar: React.FC = () => {
                                 className={({ isActive }) =>
                                     `flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
                                     isActive
-                                    ? 'bg-secondary text-white shadow-[0_6px_16px_0_rgba(92,97,244,0.35)]'
-                                    : 'text-sub-text hover:text-slate-800 hover:shadow-neu-pressed-sm dark:hover:text-white'
+                                    ? 'bg-secondary text-white shadow-glow-secondary'
+                                    : 'text-sub-text hover:text-main-text hover:shadow-neu-pressed-sm'
                                 } ${isCollapsed ? 'justify-center' : ''}`
                                 }
                             >
@@ -80,7 +80,7 @@ export const Sidebar: React.FC = () => {
             </div>
         
             <div
-                className={`p-3 rounded-2xl bg-container-bg shadow-neu-pressed-sm dark:shadow-none flex items-center ${
+                className={`p-3 rounded-2xl bg-container-bg shadow-neu-pressed-sm flex items-center ${
                             isCollapsed ? 'justify-center' : 'justify-between'
                 }`}
             >
@@ -90,7 +90,7 @@ export const Sidebar: React.FC = () => {
                             E
                         </div>
                         <div className="flex flex-col truncate">
-                            <span className="text-xs font-bold text-sub-text truncate">
+                            <span className="text-xs font-bold text-main-text truncate">
                                 Étudiant
                             </span>
                             <span className="text-[10px] text-sub-text truncate">

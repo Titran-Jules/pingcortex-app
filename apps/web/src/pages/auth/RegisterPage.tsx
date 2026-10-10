@@ -123,7 +123,7 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-neu-bg dark:bg-neu-dark-bg flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="min-h-screen bg-core-bg flex items-center justify-center p-4 sm:p-6 lg:p-8">
             <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-4 flex lg:flex-col justify-between lg:justify-center gap-25 p-4">
                     {stepsDetails.map((s, index) => {
@@ -135,24 +135,24 @@ export const RegisterPage = () => {
                                 {index < stepsDetails.length - 1 && (
                                     <div
                                         className={`hidden lg:block absolute left-6 top-12 w-0.5 h-25 transition-colors duration-300 ${
-                                            isCompleted ? "bg-brand-500" : "bg-slate-300 dark:bg-slate-800"
+                                            isCompleted ? "bg-emerald-500" : "bg-sub-text/20"
                                         }`}
                                     />
                                 )}
                                 <div
                                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
                                         isActive
-                                        ? "bg-brand-500 text-white shadow-glow-primary scale-110"
+                                        ? "bg-secondary text-white shadow-glow-primary scale-110"
                                         : isCompleted
-                                        ? "bg-emerald-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat"
-                                        : "bg-neu-bg dark:bg-neu-dark-bg text-sub-text shadow-neu-pressed dark:shadow-neu-dark-pressed"
+                                        ? "bg-emerald-500 text-white shadow-neu-flat"
+                                        : "bg-core-bg text-sub-text shadow-neu-pressed"
                                     }`}
                                 >
                                 {isCompleted ? "✓" : s.num}
                             </div>
 
                         <div className="hidden lg:flex flex-col">
-                            <span className={`text-sm font-semibold ${isActive ? "text-brand-500 dark:text-indigo-400" : "text-sub-text"}`}>
+                            <span className={`text-sm font-semibold ${isActive ? "text-secondary" : "text-sub-text"}`}>
                                 {s.title}
                             </span>
                             <span className="text-xs text-sub-text">{s.desc}</span>
@@ -247,11 +247,11 @@ export const RegisterPage = () => {
 
                     {step === 3 && (
                         <div className="flex flex-col gap-4 text-center py-4">
-                        <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl font-bold shadow-neu-pressed dark:shadow-neu-dark-pressed">
+                        <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl font-bold shadow-neu-pressed">
                             ✓
                         </div>
-                        <h4 className="text-lg font-semibold text-sub-text dark:text-white">Récapitulatif des informations</h4>
-                        <div className="text-left bg-neu-bg dark:bg-neu-dark-bg p-4 rounded-neu-sm shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs sm:text-sm space-y-2">
+                        <h4 className="text-lg font-semibold text-sub-text">Récapitulatif des informations</h4>
+                        <div className="text-left bg-core-bg p-4 rounded-neu-sm shadow-neu-pressed text-xs sm:text-sm space-y-2">
                             <p><strong className="text-sub-text">Email :</strong> {formData.email}</p>
                             <p><strong className="text-sub-text">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
                             <p><strong className="text-sub-text">Parcours :</strong> {formData.level}</p>

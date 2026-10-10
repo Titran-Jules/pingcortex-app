@@ -99,7 +99,7 @@ export const ApiKeyManager: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h2 className="text-2xl font-black text-sub-text flex items-center gap-3">
-            <div className="p-2.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-brand-500">
+            <div className="p-2.5 rounded-neu-sm bg-core-bg shadow-neu-flat text-secondary">
               <KeyRound size={22} />
             </div>
             Clés API d'IA
@@ -111,7 +111,7 @@ export const ApiKeyManager: React.FC = () => {
 
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-neu-md bg-brand-500 text-white text-xs font-bold shadow-glow-primary hover:bg-brand-600 active:scale-95 transition-all"
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-neu-md bg-secondary text-white text-xs font-bold shadow-glow-primary active:scale-95 transition-all"
         >
           <Plus size={18} /> Ajouter une clé
         </button>
@@ -119,7 +119,7 @@ export const ApiKeyManager: React.FC = () => {
 
       <div className="space-y-4">
         {keys.length == 0 &&
-            <div className='flex items-center justify-center p-6 rounded-neu-md bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text text-sm font-bold'>
+            <div className='flex items-center justify-center p-6 rounded-neu-md bg-core-bg shadow-neu-flat text-sub-text text-sm font-bold'>
                 Vous n'avez pas encore ajouté de clé.
             </div>
         }
@@ -134,15 +134,15 @@ export const ApiKeyManager: React.FC = () => {
           return (
             <div
               key={item.id}
-              className={`p-5 rounded-neu-md bg-neu-flat dark:bg-neu-dark-flat transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-white/20 dark:border-slate-800/50 ${
+              className={`p-5 rounded-neu-md bg-core-bg transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-white/20 dark:border-slate-800/50 ${
                 item.isActive
-                  ? 'shadow-neu-flat dark:shadow-neu-dark-flat ring-2 ring-brand-500/40'
-                  : 'shadow-neu-pressed dark:shadow-neu-dark-pressed opacity-75'
+                  ? 'shadow-neu-flat ring-2 ring-secondary/40'
+                  : 'shadow-neu-pressed opacity-75'
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className="p-3.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text">
-                  <Cpu size={20} className="text-brand-500" />
+                <div className="p-3.5 rounded-neu-sm bg-core-bg shadow-neu-flat text-sub-text">
+                  <Cpu size={20} className="text-secondary" />
                 </div>
 
                 <div className="space-y-1">
@@ -175,7 +175,7 @@ export const ApiKeyManager: React.FC = () => {
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-neu-sm text-xs font-bold transition-all ${
                     item.isActive
                       ? 'bg-emerald-500 text-white shadow-glow-success'
-                      : 'bg-neu-flat dark:bg-neu-dark-flat text-sub-text shadow-neu-flat dark:shadow-neu-dark-flat'
+                      : 'bg-core-bg text-sub-text shadow-neu-flat'
                   }`}
                 >
                   <Power size={15} />
@@ -185,7 +185,7 @@ export const ApiKeyManager: React.FC = () => {
                 <button
                   onClick={() => handleDelete(item.id)}
                   title="Supprimer"
-                  className="p-2.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text hover:text-rose-500 transition-all active:scale-95"
+                  className="p-2.5 rounded-neu-sm bg-core-bg shadow-neu-flat text-sub-text hover:text-rose-500 transition-all active:scale-95"
                 >
                   <Trash2 size={16} />
                 </button>
@@ -197,14 +197,14 @@ export const ApiKeyManager: React.FC = () => {
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md p-6 rounded-neu-lg bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat border border-white/30 dark:border-slate-800 space-y-6">
+          <div className="w-full max-w-md p-6 rounded-neu-lg bg-core-bg shadow-neu-flat border border-white/30 dark:border-slate-800 space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-black text-sub-text flex items-center gap-2">
-                <KeyRound size={18} className="text-brand-500" /> Ajouter une clé d'API
+                <KeyRound size={18} className="text-secondary" /> Ajouter une clé d'API
               </h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="p-1.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text"
+                className="p-1.5 rounded-neu-sm bg-core-bg shadow-neu-flat text-sub-text"
               >
                 <X size={16} />
               </button>
@@ -218,7 +218,7 @@ export const ApiKeyManager: React.FC = () => {
                 <select
                   value={provider}
                   onChange={(e) => setProvider(e.target.value as Provider)}
-                  className="w-full px-4 py-3 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs font-bold text-sub-text outline-none border-none"
+                  className="w-full px-4 py-3 rounded-neu-sm bg-core-bg shadow-neu-pressed text-xs font-bold text-sub-text outline-none border-none"
                 >
                   <option value={"GEMINI" as Provider}>Google Gemini</option>
                   <option value={"ANTHROPIC" as Provider}>Anthropic (Claude)</option>
@@ -235,7 +235,7 @@ export const ApiKeyManager: React.FC = () => {
                   placeholder="sk-ant-... ou AIzaSy..."
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
-                  className="w-full px-4 py-3 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs font-mono text-sub-text outline-none border-none placeholder:text-sub-text"
+                  className="w-full px-4 py-3 rounded-neu-sm bg-core-bg shadow-neu-pressed text-xs font-mono text-sub-text outline-none border-none placeholder:text-sub-text"
                   required
                 />
                 <p className="text-[10px] text-sub-text">
@@ -255,7 +255,7 @@ export const ApiKeyManager: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-neu-sm bg-brand-500 text-white font-bold text-xs shadow-glow-primary hover:bg-brand-600 disabled:opacity-50 transition-all"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-neu-sm bg-secondary text-white font-bold text-xs shadow-glow-primary disabled:opacity-50 transition-all"
                 >
                   {isSubmitting ? (
                     <Loader2 size={16} className="animate-spin" />

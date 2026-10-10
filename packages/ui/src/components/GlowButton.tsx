@@ -20,14 +20,14 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
 
     const variants = {
         primary:
-            'bg-brand-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed dark:active:shadow-neu-dark-pressed hover:bg-brand-600',
+            'bg-secondary text-white shadow-neu-flat active:shadow-neu-pressed',
         secondary:
-            'bg-neu-bg dark:bg-neu-dark-bg text-sub-text shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed dark:active:shadow-neu-dark-pressed hover:text-brand-500',
+            'bg-core-bg text-sub-text shadow-neu-flat active:shadow-neu-pressed hover:text-secondary',
         danger:
-            'bg-rose-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed hover:bg-rose-600',
+            'bg-rose-500 text-white shadow-neu-flat active:shadow-neu-pressed hover:bg-rose-600',
     };
 
-    const glowStyles = isGlowing ? 'shadow-glow-secondary' : '';
+    const glowStyles = isGlowing ? 'shadow-glow-primary' : '';
 
     return (
         <button
