@@ -5,7 +5,7 @@ export const CourseDetailPage = () => {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Détail du cours #{courseId}</h1>
-      <p className="text-slate-500">Analyse IA et fiches générées pour ce document.</p>
+      <p className="text-sub-text">Analyse IA et fiches générées pour ce document.</p>
     </div>
   );
 };

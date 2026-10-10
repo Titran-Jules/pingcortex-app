@@ -35,6 +35,9 @@
     
     --shadow-neu-flat: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
     --shadow-neu-pressed: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+
+    --shadow-neu-flat-sm: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    --shadow-neu-pressed-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
     
     --shadow-glow-primary: 0 0 20px color-mix(in srgb, var(--primary) 45%, transparent);
     --shadow-glow-success: 0 0 20px color-mix(in srgb, #22C55E 45%, transparent);

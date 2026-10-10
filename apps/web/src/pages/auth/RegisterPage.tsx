@@ -145,17 +145,17 @@ export const RegisterPage = () => {
                                         ? "bg-brand-500 text-white shadow-glow-primary scale-110"
                                         : isCompleted
                                         ? "bg-emerald-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat"
-                                        : "bg-neu-bg dark:bg-neu-dark-bg text-slate-400 shadow-neu-pressed dark:shadow-neu-dark-pressed"
+                                        : "bg-neu-bg dark:bg-neu-dark-bg text-sub-text shadow-neu-pressed dark:shadow-neu-dark-pressed"
                                     }`}
                                 >
                                 {isCompleted ? "✓" : s.num}
                             </div>
 
                         <div className="hidden lg:flex flex-col">
-                            <span className={`text-sm font-semibold ${isActive ? "text-brand-500 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`}>
+                            <span className={`text-sm font-semibold ${isActive ? "text-brand-500 dark:text-indigo-400" : "text-sub-text"}`}>
                                 {s.title}
                             </span>
-                            <span className="text-xs text-slate-400">{s.desc}</span>
+                            <span className="text-xs text-sub-text">{s.desc}</span>
                         </div>
                     </div>
                     );
@@ -169,7 +169,7 @@ export const RegisterPage = () => {
                             <h2 className="text-2xl font-extrabold tracking-tight text-primary dark:text-white">
                                 Ping<span className="text-blue-950">Cortex</span>
                             </h2>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">Plateforme de tutorat intelligent par IA</p>
+                            <p className="text-xs text-sub-text">Plateforme de tutorat intelligent par IA</p>
                         </div>
                     </div>
 
@@ -250,11 +250,11 @@ export const RegisterPage = () => {
                         <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl font-bold shadow-neu-pressed dark:shadow-neu-dark-pressed">
                             ✓
                         </div>
-                        <h4 className="text-lg font-semibold text-slate-800 dark:text-white">Récapitulatif des informations</h4>
+                        <h4 className="text-lg font-semibold text-sub-text dark:text-white">Récapitulatif des informations</h4>
                         <div className="text-left bg-neu-bg dark:bg-neu-dark-bg p-4 rounded-neu-sm shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs sm:text-sm space-y-2">
-                            <p><strong className="text-slate-600 dark:text-slate-400">Email :</strong> {formData.email}</p>
-                            <p><strong className="text-slate-600 dark:text-slate-400">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
-                            <p><strong className="text-slate-600 dark:text-slate-400">Parcours :</strong> {formData.level}</p>
+                            <p><strong className="text-sub-text">Email :</strong> {formData.email}</p>
+                            <p><strong className="text-sub-text">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
+                            <p><strong className="text-sub-text">Parcours :</strong> {formData.level}</p>
                         </div>
                         </div>
                     )}

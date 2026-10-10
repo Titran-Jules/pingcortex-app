@@ -98,13 +98,13 @@ export const ApiKeyManager: React.FC = () => {
     <div className="w-full max-w-4xl mx-auto space-y-8 p-2">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100 flex items-center gap-3">
+          <h2 className="text-2xl font-black text-sub-text flex items-center gap-3">
             <div className="p-2.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-brand-500">
               <KeyRound size={22} />
             </div>
             Clés API d'IA
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-sub-text mt-1">
             Gérez vos clés d'accès aux LLMs. Une seule clé peut être active à la fois.
           </p>
         </div>
@@ -119,7 +119,7 @@ export const ApiKeyManager: React.FC = () => {
 
       <div className="space-y-4">
         {keys.length == 0 &&
-            <div className='flex items-center justify-center p-6 rounded-neu-md bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-slate-500 dark:text-slate-400 text-sm font-bold'>
+            <div className='flex items-center justify-center p-6 rounded-neu-md bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text text-sm font-bold'>
                 Vous n'avez pas encore ajouté de clé.
             </div>
         }
@@ -141,7 +141,7 @@ export const ApiKeyManager: React.FC = () => {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className="p-3.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-slate-700 dark:text-slate-300">
+                <div className="p-3.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text">
                   <Cpu size={20} className="text-brand-500" />
                 </div>
 
@@ -158,7 +158,7 @@ export const ApiKeyManager: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="flex items-center gap-3 text-[11px] text-slate-400 dark:text-slate-500 font-mono">
+                  <div className="flex items-center gap-3 text-[11px] text-sub-text 500 font-mono">
                     <span>ID: {item.id.slice(0, 8)}...</span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
@@ -175,7 +175,7 @@ export const ApiKeyManager: React.FC = () => {
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-neu-sm text-xs font-bold transition-all ${
                     item.isActive
                       ? 'bg-emerald-500 text-white shadow-glow-success'
-                      : 'bg-neu-flat dark:bg-neu-dark-flat text-slate-500 dark:text-slate-400 shadow-neu-flat dark:shadow-neu-dark-flat hover:text-slate-800 dark:hover:text-white'
+                      : 'bg-neu-flat dark:bg-neu-dark-flat text-sub-text shadow-neu-flat dark:shadow-neu-dark-flat'
                   }`}
                 >
                   <Power size={15} />
@@ -185,7 +185,7 @@ export const ApiKeyManager: React.FC = () => {
                 <button
                   onClick={() => handleDelete(item.id)}
                   title="Supprimer"
-                  className="p-2.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-slate-400 hover:text-rose-500 transition-all active:scale-95"
+                  className="p-2.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text hover:text-rose-500 transition-all active:scale-95"
                 >
                   <Trash2 size={16} />
                 </button>
@@ -199,12 +199,12 @@ export const ApiKeyManager: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
           <div className="w-full max-w-md p-6 rounded-neu-lg bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat border border-white/30 dark:border-slate-800 space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-black text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <h3 className="text-base font-black text-sub-text flex items-center gap-2">
                 <KeyRound size={18} className="text-brand-500" /> Ajouter une clé d'API
               </h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="p-1.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                className="p-1.5 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-flat dark:shadow-neu-dark-flat text-sub-text"
               >
                 <X size={16} />
               </button>
@@ -212,13 +212,13 @@ export const ApiKeyManager: React.FC = () => {
 
             <form onSubmit={handleCreate} className="space-y-5">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                <label className="text-xs font-bold text-sub-text">
                   Fournisseur d'IA (*Provider*)
                 </label>
                 <select
                   value={provider}
                   onChange={(e) => setProvider(e.target.value as Provider)}
-                  className="w-full px-4 py-3 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs font-bold text-slate-700 dark:text-slate-200 outline-none border-none"
+                  className="w-full px-4 py-3 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs font-bold text-sub-text outline-none border-none"
                 >
                   <option value={"GEMINI" as Provider}>Google Gemini</option>
                   <option value={"ANTHROPIC" as Provider}>Anthropic (Claude)</option>
@@ -227,7 +227,7 @@ export const ApiKeyManager: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                <label className="text-xs font-bold text-sub-text">
                   Clé d'API secrète
                 </label>
                 <input
@@ -235,10 +235,10 @@ export const ApiKeyManager: React.FC = () => {
                   placeholder="sk-ant-... ou AIzaSy..."
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
-                  className="w-full px-4 py-3 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs font-mono text-slate-700 dark:text-slate-200 outline-none border-none placeholder:text-slate-400"
+                  className="w-full px-4 py-3 rounded-neu-sm bg-neu-flat dark:bg-neu-dark-flat shadow-neu-pressed dark:shadow-neu-dark-pressed text-xs font-mono text-sub-text outline-none border-none placeholder:text-sub-text"
                   required
                 />
-                <p className="text-[10px] text-slate-400">
+                <p className="text-[10px] text-sub-text">
                   La clé est chiffrée côté serveur dès sa réception.
                 </p>
               </div>
@@ -247,7 +247,7 @@ export const ApiKeyManager: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2.5 rounded-neu-sm text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                  className="px-4 py-2.5 rounded-neu-sm text-xs font-bold text-sub-text"
                 >
                   Annuler
                 </button>

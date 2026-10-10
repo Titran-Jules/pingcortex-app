@@ -22,7 +22,7 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
         primary:
             'bg-brand-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed dark:active:shadow-neu-dark-pressed hover:bg-brand-600',
         secondary:
-            'bg-neu-bg dark:bg-neu-dark-bg text-slate-700 dark:text-slate-200 shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed dark:active:shadow-neu-dark-pressed hover:text-brand-500',
+            'bg-neu-bg dark:bg-neu-dark-bg text-sub-text shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed dark:active:shadow-neu-dark-pressed hover:text-brand-500',
         danger:
             'bg-rose-500 text-white shadow-neu-flat dark:shadow-neu-dark-flat active:shadow-neu-pressed hover:bg-rose-600',
     };
