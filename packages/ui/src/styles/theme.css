@@ -1,0 +1,34 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    --core-bg: #F9FAFB;
+    --container-bg: #FFFFFF;
+    --primary: #22D3EE;
+    --secondary: #6366F1;
+    --main-text: #1F2937;
+    --sub-text: #4B5563;
+    --shadow-dark: #b8c2d0;
+    --shadow-light: #ffffff;
+}
+
+.dark {
+    --core-bg: #111827;
+    --container-bg: #1F2837;
+    --primary: #00F5FF;
+    --secondary: #818CF8;
+    --main-text: #E5E7EB;
+    --sub-text: #9CA3AF;
+    --shadow-dark: #070a12;
+    --shadow-light: #182238;
+}
+
+@theme inline {
+    --color-core-bg: var(--core-bg);
+    --color-container-bg: var(--container-bg);
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-main-text: var(--main-text);
+    --color-sub-text: var(--sub-text);
+    
+    --shadow-neu-flat: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+}
