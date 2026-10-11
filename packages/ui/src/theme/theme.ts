@@ -5,16 +5,24 @@ export const THEME_STORAGE_KEY = 'theme';
 
 export const readStoredTheme = (): Theme | null => {
     if (typeof window === 'undefined') return null;
-    const value = localStorage.getItem(THEME_STORAGE_KEY);
-    if (value === 'light' || value === 'dark' || value === 'system') {
-        return value;
+    try {
+        const value = localStorage.getItem(THEME_STORAGE_KEY);
+        if (value === 'light' || value === 'dark' || value === 'system') {
+            return value;
+        }
+        return null;
+    } catch {
+        return null;
     }
-    return null;
 };
 
 export const writeStoredTheme = (theme: Theme): void => {
     if (typeof window === 'undefined') return;
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+        return;
+    }
 }
 
 export const getSystemTheme = (): ResolvedTheme => {

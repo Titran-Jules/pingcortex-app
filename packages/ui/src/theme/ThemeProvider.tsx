@@ -18,12 +18,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const resolvedTheme: ResolvedTheme = theme === 'system' ? systemTheme : theme;
 
     const setTheme = useCallback((newTheme: Theme) => {
-        try {
-            setThemeState(newTheme);
-            writeStoredTheme(newTheme);
-        } catch (error) {
-            console.error("Failed to save theme in localStorage :", error);
-        }
+        setThemeState(newTheme);
+        writeStoredTheme(newTheme);
     }, []);
 
     const toggleTheme = useCallback(() => {
