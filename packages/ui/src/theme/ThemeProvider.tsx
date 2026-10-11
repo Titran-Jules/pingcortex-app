@@ -1,13 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { applyTheme, getSystemTheme, readStoredTheme, THEME_STORAGE_KEY, writeStoredTheme, type ResolvedTheme, type Theme } from "./theme";
+import { isTheme, applyTheme, getSystemTheme, readStoredTheme, THEME_STORAGE_KEY, writeStoredTheme, type ResolvedTheme, type Theme } from "./theme";
 import { ThemeContext } from "./ThemeContext";
 
 interface ThemeProviderProps {
     children: React.ReactNode;
-}
-
-const isTheme = (value: string | null): value is Theme => {
-    return value === 'light' || value === 'dark' || value === 'system';
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {

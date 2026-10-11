@@ -3,11 +3,15 @@ export type ResolvedTheme = 'light' | 'dark';
 
 export const THEME_STORAGE_KEY = 'theme';
 
+export const isTheme = (value: string | null): value is Theme => {
+    return value === 'light' || value === 'dark' || value === 'system';
+};
+
 export const readStoredTheme = (): Theme | null => {
     if (typeof window === 'undefined') return null;
     try {
         const value = localStorage.getItem(THEME_STORAGE_KEY);
-        if (value === 'light' || value === 'dark' || value === 'system') {
+        if (isTheme(value)) {
             return value;
         }
         return null;
@@ -41,7 +45,5 @@ export const resolveTheme = (theme: Theme): ResolvedTheme => {
 export const applyTheme = (resolvedTheme: ResolvedTheme): void => {
     if (typeof window === 'undefined') return;
     const root = document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(resolvedTheme);
-    root.style.colorScheme = resolvedTheme;
+    root.classList.toggle('dark', resolvedTheme === 'dark');
 }
