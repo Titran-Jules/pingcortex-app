@@ -19,8 +19,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     const setTheme = useCallback((newTheme: Theme) => {
         try {
-            writeStoredTheme(newTheme);
             setThemeState(newTheme);
+            writeStoredTheme(newTheme);
         } catch (error) {
             console.error("Failed to save theme in localStorage :", error);
         }
