@@ -5,3 +5,5 @@ export * from './components/SoftInput';
 export * from './components/ToggleTheme';
 export * from './utils/cn';
 export * from './theme/theme';
+export * from './theme/ThemeProvider';
+export * from './theme/useTheme';
