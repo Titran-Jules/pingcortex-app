@@ -1,6 +1,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+    color-scheme: light;
     --on-primary: #1F2937;
     --on-secondary: #FFFFFF;
     --core-bg: #F9FAFB;
@@ -15,6 +16,7 @@
 }
 
 .dark {
+    color-scheme: dark;
     --on-primary: #111827;
     --on-secondary: #111827;
     --core-bg: #111827;
