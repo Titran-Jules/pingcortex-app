@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
+import { NeumorphicCard, SoftInput, Button } from "@pingcortex/ui";
 import type { LoginRequest } from "@pingcortex/shared-types";
 import { api } from "../../api/api";
 import { useState } from "react";
@@ -103,9 +103,9 @@ export const LoginPage = () => {
                         </a>
                     </div>
 
-                    <GlowButton variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting}>
+                    <Button variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting}>
                         {isSubmitting ? "Connexion en cours..." : "Se connecter"}
-                    </GlowButton>
+                    </Button>&
                 </form>
 
                 <div className="text-center pt-4 border-t border-on-primary/20">

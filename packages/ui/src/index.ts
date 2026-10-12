@@ -1,5 +1,5 @@
 export * from './components/AnalysisStatusBadge';
-export * from './components/GlowButton';
+export * from './components/Button';
 export * from './components/NeumorphicCard';
 export * from './components/SoftInput';
 export * from './components/ToggleTheme';

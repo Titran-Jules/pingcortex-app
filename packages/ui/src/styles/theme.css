@@ -64,9 +64,14 @@
     --shadow-neu-pressed-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
     
     --shadow-glow-primary: 0 0 20px color-mix(in srgb, var(--primary) 45%, transparent);
-    --shadow-glow-secondary: 0 6 16px color-mix(in srgb, var(--secondary) 35%, transparent);
-    --shadow-glow-success: 0 0 20px color-mix(in srgb, #22C55E 45%, transparent);
-    --shadow-glow-warning: 0 0 20px color-mix(in srgb, #EAB308 45%, transparent);
+    --shadow-glow-secondary: 0 6px 16px color-mix(in srgb, var(--secondary) 35%, transparent);
+    --shadow-glow-success: 0 0 20px color-mix(in srgb, var(--success) 45%, transparent);
+    --shadow-glow-warning: 0 0 20px color-mix(in srgb, var(--warning) 45%, transparent);
+    --shadow-glow-danger: 0 0 20px color-mix(in srgb, var(--danger) 45%, transparent);
+
+    --shadow-neu-glow-primary: var(--shadow-neu-flat), var(--shadow-glow-primary);
+    --shadow-neu-glow-secondary: var(--shadow-neu-flat), var(--shadow-glow-secondary);
+    --shadow-neu-glow-danger: var(--shadow-neu-flat), var(--shadow-glow-danger);
 
     --radius-neu-sm: 12px;
     --radius-neu-md: 20px;

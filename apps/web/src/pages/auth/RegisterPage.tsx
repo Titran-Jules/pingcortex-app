@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../../api/api";
 import type { UserRegister } from "@pingcortex/shared-types";
-import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
+import { NeumorphicCard, SoftInput, Button } from "@pingcortex/ui";
 
 export interface RegisterFormData {
     email: string;
@@ -261,19 +261,19 @@ export const RegisterPage = () => {
 
                     <div className="flex items-center justify-between pt-4 border-t border-on-primary/10 dark:border-slate-800/40">
                         {step > 1 ? (
-                        <GlowButton variant="secondary" onClick={() => setStep(step - 1)}>
+                        <Button variant="secondary" onClick={() => setStep(step - 1)}>
                             Précédent
-                        </GlowButton>
+                        </Button>
                         ) : <div />}
 
                         {step < 3 ? (
-                        <GlowButton variant="primary" isGlowing onClick={handleNextStep}>
+                        <Button variant="primary" isGlowing onClick={handleNextStep}>
                             Suivant
-                        </GlowButton>
+                        </Button>
                         ) : (
-                        <GlowButton variant="primary" isGlowing disabled={isSubmitting} onClick={handleFinalSubmit}>
+                        <Button variant="primary" isGlowing disabled={isSubmitting} loading={isSubmitting} onClick={handleFinalSubmit}>
                             {isSubmitting ? "Création du compte..." : "Finaliser l'inscription"}
-                        </GlowButton>
+                        </Button>
                         )}
                     </div>
                 </NeumorphicCard>
