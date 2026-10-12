@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { cn } from "../utils/cn";
 
 export interface SoftInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -8,11 +8,16 @@ export interface SoftInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 }
 
 export const SoftInput = React.forwardRef<HTMLInputElement, SoftInputProps>(
-    ({ label, error, icon, className, ...props }, ref) => {
+    ({ label, error, icon, className, id, ...props }, ref) => {
+
+        const generatedId = useId();
+        const inputId = id || `input-${generatedId}`;
+        const errorId = `error-${generatedId}`;
+
         return (
         <div className="w-full flex flex-col gap-1.5">
             {label && (
-                <label className="text-sm font-medium text-sub-text ml-1">
+                <label htmlFor={inputId} className="text-sm font-medium text-sub-text ml-1">
                     {label}
                 </label>
             )}
@@ -20,17 +25,20 @@ export const SoftInput = React.forwardRef<HTMLInputElement, SoftInputProps>(
                 {icon && <div className="absolute left-4 text-sub-text">{icon}</div>}
                 <input
                     ref={ref}
+                    id={inputId}
+                    aria-invalid={error ? 'true' : 'false'}
+                    aria-describedby={error ? errorId : undefined}
                     className={cn(
-                        'w-full py-3 px-4 rounded-neu-sm bg-core-bg text-sub-text placeholder-on-primary/30 focus:outline-none transition-all duration-200',
+                        'w-full py-3 px-4 rounded-neu-sm bg-core-bg text-main-text placeholder-text-sub-text focus:outline-none transition-all duration-200',
                         'shadow-neu-pressed focus:ring-2 focus:ring-secondary/50',
                         icon && 'pl-11',
-                        error && 'border border-rose-500/50',
+                        error && 'border border-danger',
                         className
                     )}
                     {...props}
                 />
             </div>
-            {error && <span className="text-xs text-rose-500 ml-1">{error}</span>}
+            {error && <span className="text-xs text-danger ml-1">{error}</span>}
         </div>
         );
     }
