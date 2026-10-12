@@ -21,7 +21,7 @@ export const NeumorphicCard: React.FC<NeumorphicCardProps> = ({
     return (
         <div
             className={cn(
-                'rounded-neu-md p-6 transition-all duration-300 border border-main-text/5',
+                'rounded-neu-md p-6 transition-all duration-300 border border-main-text/3',
                 variants[variant],
                 className
             )}

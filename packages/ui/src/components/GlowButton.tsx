@@ -1,8 +1,9 @@
 import React from "react";
 import { cn } from "../utils/cn";
+import { Sparkle } from 'lucide-react';
 
 export interface GlowButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'danger';
+    variant?: 'primary' | 'secondary' | 'generate' | 'danger';
     isGlowing?: boolean;
     children: React.ReactNode;
 }
@@ -16,13 +17,15 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
     ...props
 }) => {
     const baseStyles =
-        'relative px-6 py-3 rounded-neu-sm font-semibold transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none select-none';
+        'flex items-center justify-center gap-2 relative px-6 py-3 rounded-neu-sm font-semibold transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none select-none';
 
     const variants = {
         primary:
-            'bg-secondary text-white shadow-neu-flat active:shadow-neu-pressed',
+            'bg-primary text-on-primary shadow-neu-flat active:shadow-neu-pressed',
         secondary:
-            'bg-core-bg text-sub-text shadow-neu-flat active:shadow-neu-pressed hover:text-secondary',
+            'bg-core-bg text-secondary-strong shadow-neu-flat active:shadow-neu-pressed hover:text-secondary',
+        generate:
+            'bg-secondary text-on-secondary shadow-neu-flat active:shadow-neu-pressed',
         danger:
             'bg-rose-500 text-white shadow-neu-flat active:shadow-neu-pressed hover:bg-rose-600',
     };
@@ -35,6 +38,9 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
             disabled={disabled}
             {...props}
         >
+            {variant === 'generate' &&
+                <Sparkle size={14}/>
+            }
             {children}
         </button>
     );
