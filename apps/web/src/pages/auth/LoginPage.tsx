@@ -103,12 +103,12 @@ export const LoginPage = () => {
                         </a>
                     </div>
 
-                    <Button variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting}>
+                    <Button variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting} type="submit">
                         {isSubmitting ? "Connexion en cours..." : "Se connecter"}
-                    </Button>&
+                    </Button>
                 </form>
 
-                <div className="text-center pt-4 border-t border-on-primary/20">
+                <div className="text-center pt-4 border-t border-sub-text/20">
                     <p className="text-xs sm:text-sm text-sub-text">
                         Vous n'avez pas de compte ?{" "}
                         <NavLink to="/register" className="text-secondary font-semibold hover:underline">
