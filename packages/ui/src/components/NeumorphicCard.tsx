@@ -15,13 +15,13 @@ export const NeumorphicCard: React.FC<NeumorphicCardProps> = ({
     const variants = {
         flat: 'shadow-neu-flat bg-core-bg',
         pressed: 'shadow-neu-pressed bg-core-bg',
-        convex: 'shadow-neu-flat bg-gradient-to-br from-white to-core-bg',
+        convex: 'shadow-neu-flat bg-gradient-to-br from-container-bg to-core-bg',
     };
 
     return (
         <div
             className={cn(
-                'rounded-neu-md p-6 transition-all duration-300 border border-white/20 dark:border-slate-800/40',
+                'rounded-neu-md p-6 transition-all duration-300 border border-main-text/5',
                 variants[variant],
                 className
             )}
