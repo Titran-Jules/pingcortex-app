@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Button, Badge } from '@pingcortex/ui';
+import { Button, Badge, AnalysisStatusBadge } from '@pingcortex/ui';
 import { Brain } from 'lucide-react';
 
 export const CourseDetailPage = () => {
@@ -15,6 +15,7 @@ export const CourseDetailPage = () => {
         <Badge variant='primary' size='md' leftIcon={<Brain size={14}/>}>
           primary
         </Badge>
+        <Badge variant='secondary' dot={true} size='md'>secondary</Badge>
         <Badge variant='neutral' size='md'>
           neutral
         </Badge>
@@ -28,6 +29,14 @@ export const CourseDetailPage = () => {
           danger
         </Badge>
         <Badge variant='primary' size='sm' leftIcon={<Brain size={14}/>}></Badge>
+
+      </div>
+      <div className='flex gap-4 items-center'>
+        <Badge variant='primary' size='md' dot={true} ping={true}>Analyse en cours...</Badge>
+        <AnalysisStatusBadge status='PENDING'/>
+        <AnalysisStatusBadge status='ANALYZING'/>
+        <AnalysisStatusBadge status='READY'/>
+        <AnalysisStatusBadge status='FAILED'/>
       </div>
     </div>
   );
