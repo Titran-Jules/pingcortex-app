@@ -73,7 +73,7 @@ export const LoginPage = () => {
                         label="Adresse Email"
                         name="email"
                         type="email"
-                        placeholder="etudiant@pingcortex.com"
+                        placeholder="etudiant@gmail.com"
                         icon={<EmailIcon />}
                         value={formData.email}
                         onChange={handleChange}

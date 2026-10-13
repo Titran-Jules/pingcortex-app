@@ -179,7 +179,7 @@ export const RegisterPage = () => {
                             label="Adresse Email"
                             name="email"
                             type="email"
-                            placeholder="etudiant@univ.mg"
+                            placeholder="etudiant@gmail.com"
                             icon={<EmailIcon />}
                             value={formData.email}
                             onChange={handleChange}
@@ -215,7 +215,7 @@ export const RegisterPage = () => {
                             label="Nom"
                             name="lastName"
                             type="text"
-                            placeholder="Rabe"
+                            placeholder="ANDRIANATOMBO"
                             icon={<UserIcon />}
                             value={formData.lastName}
                             onChange={handleChange}
@@ -225,7 +225,7 @@ export const RegisterPage = () => {
                             label="Prénom(s)"
                             name="firstName"
                             type="text"
-                            placeholder="Soa"
+                            placeholder="Jules Titran"
                             icon={<UserIcon />}
                             value={formData.firstName}
                             onChange={handleChange}
