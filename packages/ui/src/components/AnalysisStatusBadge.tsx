@@ -1,38 +1,27 @@
-import { Badge, type Variants } from "./Badge";
+import { Badge, type BadgeSize, type Variants } from './Badge';
 
 export type StatusType = 'PENDING' | 'ANALYZING' | 'READY' | 'FAILED';
 
 export interface AnalysisStatusBadgeProps {
     status: StatusType;
-    size?: 'sm' | 'md' | 'lg';
+    size?: BadgeSize;
 }
 
-export const AnalysisStatusBadge: React.FC<AnalysisStatusBadgeProps> = ({status, size = 'md'}) => {
+const STATUS_CONFIG = {
+    PENDING: { label: 'En attente', variant: 'neutral' },
+    ANALYZING: { label: 'Analyse en cours…', variant: 'primary' },
+    READY: { label: 'Prêt', variant: 'success' },
+    FAILED: { label: 'Échec de l’analyse', variant: 'danger' },
+} as const satisfies Record<StatusType, { label: string; variant: Variants }>;
 
-    const configStatus = {
-        PENDING: {
-            label: 'En attente',
-            variant: 'warning',
-        },
-        ANALYZING: {
-            label: 'Analyse en cours...',
-            variant: 'primary',
-        },
-        READY: {
-            label: 'Prêt',
-            variant: 'success',
-        },
-        FAILED: {
-            label: 'Échec',
-            variant: 'danger',
-        },
-    };
-
-    const config = configStatus[status];
+export const AnalysisStatusBadge = ({ status, size = 'md' }: AnalysisStatusBadgeProps) => {
+    const { label, variant } = STATUS_CONFIG[status];
 
     return (
-        <Badge size={size} dot={true} ping={status === 'ANALYZING'} variant={config.variant as Variants}>
-            {config.label}
-        </Badge>
-    )
-}
+        <span role="status" className="inline-flex">
+            <Badge size={size} dot ping={status === 'ANALYZING'} variant={variant}>
+                {label}
+            </Badge>
+        </span>
+    );
+};
