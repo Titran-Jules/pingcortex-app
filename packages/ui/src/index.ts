@@ -4,6 +4,7 @@ export * from './components/NeumorphicCard';
 export * from './components/SoftInput';
 export * from './components/ToggleTheme';
 export * from './components/Badge';
+export * from './components/ProgressBar';
 export * from './utils/cn';
 export * from './theme/theme';
 export * from './theme/ThemeProvider';
