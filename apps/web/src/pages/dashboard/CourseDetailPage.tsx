@@ -1,9 +1,24 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Badge, AnalysisStatusBadge } from '@pingcortex/ui';
+import { Button, Badge, AnalysisStatusBadge, PromptInput } from '@pingcortex/ui';
 import { Brain } from 'lucide-react';
 
 export const CourseDetailPage = () => {
+  const [isGenerating, setIsGenerating] = useState(false);
   const { courseId } = useParams<{ courseId: string }>();
+
+  const handlePromptSubmit = (promptText: string) => {
+        setIsGenerating(true);
+        console.log("Prompt envoyé à l'IA PingCortex :", promptText);
+
+        // Simulation d'un appel API asynchrone de génération
+        setTimeout(() => {
+            setIsGenerating(false);
+            alert("Cartes de révision générées avec succès !");
+        }, 2500);
+    };
+
+
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Détail du cours #{courseId}</h1>
@@ -38,6 +53,13 @@ export const CourseDetailPage = () => {
         <AnalysisStatusBadge status='READY'/>
         <AnalysisStatusBadge status='FAILED'/>
       </div>
+      <div className="max-w-2xl mx-auto p-6">
+          <PromptInput
+            onSubmit={handlePromptSubmit}
+            loading={isGenerating}
+            placeholder="Collez votre résumé de cours sur le protocole TCP/IP..."
+          />
+        </div>
     </div>
   );
 };
