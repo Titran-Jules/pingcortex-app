@@ -13,3 +13,4 @@ export * from './components/skeletons/CardDetailSkeleton';
 export * from './components/skeletons/CardListSkeleton';
 export * from './components/skeletons/CircularSkeleton';
 export * from './components/PromptInput';
+export * from './components/Tabs';
