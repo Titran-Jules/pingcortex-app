@@ -16,3 +16,4 @@ export * from './components/PromptInput';
 export * from './components/Tabs';
 export * from './components/toast/toast';
 export * from './components/toast/Toaster';
+export * from './components/Modal';
