@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../../api/api";
 import type { UserRegister } from "@pingcortex/shared-types";
-import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
+import { NeumorphicCard, SoftInput, Button } from "@pingcortex/ui";
 
 export interface RegisterFormData {
     email: string;
@@ -163,7 +163,7 @@ export const RegisterPage = () => {
                 </div>
 
                 <NeumorphicCard className="lg:col-span-8 flex flex-col gap-6 p-6 sm:p-8">
-                    <div className="flex items-center gap-4 border-b border-on-primary/10 pb-6">
+                    <div className="flex items-center gap-4 border-b border-sub-text/20 pb-6">
                         <img src="/logo.png" alt="Logo PingCortex" className="w-16 h-16 object-contain" />
                         <div>
                             <h2 className="text-2xl font-extrabold tracking-tight text-primary">
@@ -179,7 +179,7 @@ export const RegisterPage = () => {
                             label="Adresse Email"
                             name="email"
                             type="email"
-                            placeholder="etudiant@univ.mg"
+                            placeholder="etudiant@gmail.com"
                             icon={<EmailIcon />}
                             value={formData.email}
                             onChange={handleChange}
@@ -215,7 +215,7 @@ export const RegisterPage = () => {
                             label="Nom"
                             name="lastName"
                             type="text"
-                            placeholder="Rabe"
+                            placeholder="ANDRIANATOMBO"
                             icon={<UserIcon />}
                             value={formData.lastName}
                             onChange={handleChange}
@@ -225,7 +225,7 @@ export const RegisterPage = () => {
                             label="Prénom(s)"
                             name="firstName"
                             type="text"
-                            placeholder="Soa"
+                            placeholder="Jules Titran"
                             icon={<UserIcon />}
                             value={formData.firstName}
                             onChange={handleChange}
@@ -259,21 +259,21 @@ export const RegisterPage = () => {
                         </div>
                     )}
 
-                    <div className="flex items-center justify-between pt-4 border-t border-on-primary/10 dark:border-slate-800/40">
+                    <div className="flex items-center justify-between pt-4 border-t border-sub-text/20 dark:border-slate-800/40">
                         {step > 1 ? (
-                        <GlowButton variant="secondary" onClick={() => setStep(step - 1)}>
+                        <Button variant="secondary" onClick={() => setStep(step - 1)}>
                             Précédent
-                        </GlowButton>
+                        </Button>
                         ) : <div />}
 
                         {step < 3 ? (
-                        <GlowButton variant="primary" isGlowing onClick={handleNextStep}>
+                        <Button variant="primary" isGlowing onClick={handleNextStep}>
                             Suivant
-                        </GlowButton>
+                        </Button>
                         ) : (
-                        <GlowButton variant="primary" isGlowing disabled={isSubmitting} onClick={handleFinalSubmit}>
+                        <Button variant="primary" isGlowing disabled={isSubmitting} loading={isSubmitting} onClick={handleFinalSubmit}>
                             {isSubmitting ? "Création du compte..." : "Finaliser l'inscription"}
-                        </GlowButton>
+                        </Button>
                         )}
                     </div>
                 </NeumorphicCard>

@@ -9,10 +9,15 @@
     --primary: #22D3EE;
     --primary-strong: #0E7490;
     --secondary: #6366F1;
+    --secondary-strong: #4F46E5;
     --main-text: #1F2937;
     --sub-text: #4B5563;
     --shadow-dark: #d5dbe5;
     --shadow-light: #ffffff;
+    --success: #15803D;
+    --warning: #A16207;
+    --danger: #BE123C;
+    --on-danger: #FFFFFF;
 }
 
 .dark {
@@ -24,10 +29,15 @@
     --primary: #00F5FF;
     --primary-strong: #00F5FF;
     --secondary: #818CF8;
+    --secondary-strong: #818CF8;
     --main-text: #E5E7EB;
     --sub-text: #9CA3AF;
     --shadow-dark: #070a12;
     --shadow-light: #182238;
+    --success: #4ADE80;
+    --warning: #FACC15;
+    --danger: #FB7185;
+    --on-danger: #111827;
 }
 
 @theme inline {
@@ -38,8 +48,14 @@
     --color-primary: var(--primary);
     --color-primary-strong: var(--primary-strong);
     --color-secondary: var(--secondary);
+    --color-secondary-strong: var(--secondary-strong);
     --color-main-text: var(--main-text);
     --color-sub-text: var(--sub-text);
+
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-danger: var(--danger);
+    --color-on-danger: var(--on-danger);
     
     --shadow-neu-flat: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
     --shadow-neu-pressed: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
@@ -48,9 +64,14 @@
     --shadow-neu-pressed-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
     
     --shadow-glow-primary: 0 0 20px color-mix(in srgb, var(--primary) 45%, transparent);
-    --shadow-glow-secondary: 0 6 16px color-mix(in srgb, var(--secondary) 35%, transparent);
-    --shadow-glow-success: 0 0 20px color-mix(in srgb, #22C55E 45%, transparent);
-    --shadow-glow-warning: 0 0 20px color-mix(in srgb, #EAB308 45%, transparent);
+    --shadow-glow-secondary: 0 6px 16px color-mix(in srgb, var(--secondary) 35%, transparent);
+    --shadow-glow-success: 0 0 20px color-mix(in srgb, var(--success) 45%, transparent);
+    --shadow-glow-warning: 0 0 20px color-mix(in srgb, var(--warning) 45%, transparent);
+    --shadow-glow-danger: 0 0 20px color-mix(in srgb, var(--danger) 45%, transparent);
+
+    --shadow-neu-glow-primary: var(--shadow-neu-flat), var(--shadow-glow-primary);
+    --shadow-neu-glow-secondary: var(--shadow-neu-flat), var(--shadow-glow-secondary);
+    --shadow-neu-glow-danger: var(--shadow-neu-flat), var(--shadow-glow-danger);
 
     --radius-neu-sm: 12px;
     --radius-neu-md: 20px;

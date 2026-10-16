@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { NeumorphicCard, SoftInput, GlowButton } from "@pingcortex/ui";
+import { NeumorphicCard, SoftInput, Button } from "@pingcortex/ui";
 import type { LoginRequest } from "@pingcortex/shared-types";
 import { api } from "../../api/api";
 import { useState } from "react";
@@ -73,7 +73,7 @@ export const LoginPage = () => {
                         label="Adresse Email"
                         name="email"
                         type="email"
-                        placeholder="etudiant@pingcortex.com"
+                        placeholder="etudiant@gmail.com"
                         icon={<EmailIcon />}
                         value={formData.email}
                         onChange={handleChange}
@@ -103,12 +103,12 @@ export const LoginPage = () => {
                         </a>
                     </div>
 
-                    <GlowButton variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting}>
+                    <Button variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting} type="submit">
                         {isSubmitting ? "Connexion en cours..." : "Se connecter"}
-                    </GlowButton>
+                    </Button>
                 </form>
 
-                <div className="text-center pt-4 border-t border-on-primary/20">
+                <div className="text-center pt-4 border-t border-sub-text/20">
                     <p className="text-xs sm:text-sm text-sub-text">
                         Vous n'avez pas de compte ?{" "}
                         <NavLink to="/register" className="text-secondary font-semibold hover:underline">
