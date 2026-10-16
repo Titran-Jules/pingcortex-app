@@ -100,7 +100,7 @@ export const ComponentsPage: React.FC = () => {
                 <h2 className="text-xl font-bold">6. Prompt Input & Skeletons</h2>
                 <div className="space-y-6 p-6 rounded-3xl bg-core-bg shadow-neu-flat">
                     <PromptInput 
-                        onSubmit={(val) => {
+                        onSubmit={() => {
                         setIsPromptLoading(true);
                         setTimeout(() => setIsPromptLoading(false), 2000);
                         }}
