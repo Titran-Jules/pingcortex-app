@@ -1,12 +1,10 @@
 import React from 'react';
 import { Toaster as SonnerToaster } from 'sonner';
-
-import { resolveTheme, readStoredTheme } from '../../theme/theme';
+import { useTheme } from '../../theme/useTheme';
 import { cn } from '../../utils/cn';
 
 export const Toaster: React.FC = () => {
-    const storedTheme = readStoredTheme() || 'system';
-    const resolvedTheme = resolveTheme(storedTheme);
+    const { resolvedTheme } = useTheme();
 
     return (
         <SonnerToaster
@@ -16,16 +14,25 @@ export const Toaster: React.FC = () => {
                 unstyled: true,
                 classNames: {
                     toast: cn(
-                        "flex items-center gap-3 w-full p-4 rounded-neu-sm",
-                        "bg-container-bg text-main-text shadow-neu-flat",
-                        "border border-main-text/10"
+                        'pointer-events-auto flex w-full items-center gap-3 rounded-neu-sm p-4',
+                        'border border-main-text/10 bg-container-bg text-main-text shadow-neu-flat'
                     ),
-                    description: "text-xs text-sub-text mt-1",
-                    actionButton: "bg-primary text-on-primary px-3 py-1.5 rounded-neu-sm text-xs font-semibold",
-                    cancelButton: "bg-container-bg text-sub-text px-3 py-1.5 rounded-neu-sm text-xs",
-                    success: "border-success/40 bg-success/5",
-                    error: "border-danger/40 bg-danger/5",
-                    warning: "border-warning/40 bg-warning/5",
+                    icon: 'flex shrink-0',
+                    title: 'text-sm font-semibold',
+                    description: 'mt-1 text-xs text-sub-text',
+                    closeButton: cn(
+                        'absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full',
+                        'bg-container-bg text-sub-text shadow-neu-flat-sm transition-colors',
+                        'hover:text-main-text focus-visible:outline-2 focus-visible:outline-secondary-strong'
+                    ),
+                    actionButton:
+                        'rounded-neu-sm bg-primary px-3 py-1.5 text-xs font-semibold text-on-primary',
+                    cancelButton:
+                        'rounded-neu-sm bg-core-bg px-3 py-1.5 text-xs text-sub-text',
+                    success: 'border-l-4 border-l-success [&_[data-icon]]:text-success',
+                    error: 'border-l-4 border-l-danger [&_[data-icon]]:text-danger',
+                    warning: 'border-l-4 border-l-warning [&_[data-icon]]:text-warning',
+                    info: 'border-l-4 border-l-secondary-strong [&_[data-icon]]:text-secondary-strong',
                 },
             }}
         />
