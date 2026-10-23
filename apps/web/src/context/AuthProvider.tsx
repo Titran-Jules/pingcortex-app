@@ -16,8 +16,8 @@ export interface Session {
 const SIGNED_OUT: Session = { status: 'unauthenticated', user: null };
 
 interface AuthContextType extends Session {
-    login: (credential: any) => Promise<void>;
-    register: (data: any) => Promise<'logged-in' | 'registered'>;
+    login: (credential: LoginRequest) => Promise<void>;
+    register: (data: UserRegister) => Promise<'logged-in' | 'registered'>;
     logout: () => Promise<void>;
 }
 
