@@ -14,8 +14,8 @@ export class PingCortexApi {
         register: (data: UserRegister) =>
             this.client.post<UserResponse>('/auth/register', data).then((res) => res.data),
 
-        logout: (refreshToken: string) =>
-            this.client.post<void>('/auth/logout', { refreshToken }),
+        logout: (refreshToken?: string) =>
+            this.client.post<void>('/auth/logout', refreshToken ? { refreshToken } : undefined),
     };
 
     user = {

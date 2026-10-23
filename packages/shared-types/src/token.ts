@@ -12,5 +12,5 @@ export interface RefreshRequest {
 
 export interface RefreshResponse {
     accessToken: string;
-    refreshToken: string;
+    refreshToken?: string;
 }
