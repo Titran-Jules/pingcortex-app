@@ -17,6 +17,6 @@ export interface UserResponse {
     email: string;
     name: string;
     level: string;
-    alertThreshold: number;
+    alertThreshold: number | null;
     createdAt: string
 }
