@@ -1,27 +1,14 @@
-import type { LoginRequest, UserRegister, UserResponse } from "@pingcortex/shared-types";
+import type { LoginRequest, UserRegister } from "@pingcortex/shared-types";
 import { UNAUTHENTICATED_EVENT } from "../api/api";
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "./AuthContext";
+import type { Session, AuthStatus } from "@pingcortex/shared-types";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { sessionHint } from "../api/sessionHint";
 import { api } from "../api/api";
 import { tokenStore } from "@pingcortex/api-client";
 import { toast } from "@pingcortex/ui";
 
-export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated';
-
-export interface Session {
-    status: AuthStatus;
-    user: UserResponse | null;
-}
-
 const SIGNED_OUT: Session = { status: 'unauthenticated', user: null };
-
-interface AuthContextType extends Session {
-    login: (credential: LoginRequest) => Promise<void>;
-    register: (data: UserRegister) => Promise<'logged-in' | 'registered'>;
-    logout: () => Promise<void>;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [session, setSession] = useState<Session>(() => 
@@ -71,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             ignore = true;
             window.removeEventListener(UNAUTHENTICATED_EVENT, handleUnauthenticated);
         }
-    }, []);
+    }, [session.status]);
 
     const login = useCallback(async (crendentials: LoginRequest) => {
         const response = await api.auth.login(crendentials);
@@ -115,12 +102,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             {children}
         </AuthContext.Provider>
     );
-};
-
-export const useAuth = (): AuthContextType => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error("useAuth doit être utilisé à l'intérieur d'un AuthProvider");
-    }
-    return context;
 };
