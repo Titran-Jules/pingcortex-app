@@ -1,7 +1,8 @@
+import type React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth"
 
-export const ProtectedRoute = () => {
+export const ProtectedRoute: React.FC = () => {
     const { status } = useAuth();
     const location = useLocation();
 
