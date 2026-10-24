@@ -1,20 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { NeumorphicCard, SoftInput, Button } from "@pingcortex/ui";
 import type { LoginRequest } from "@pingcortex/shared-types";
-import { api } from "../../api/api";
 import { useState } from "react";
-
-const EmailIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-);
-
-const LockIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-    </svg>
-);
+import { MailIcon, LockIcon } from 'lucide-react';
+import { useAuth } from "../../hooks/useAuth";
+import { getErrorMessage } from "../../errors/getErrorMessage";
 
 export const LoginPage = () => {
     const [formData, setFormData] = useState<LoginRequest>({
@@ -24,8 +14,10 @@ export const LoginPage = () => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+    const { login } = useAuth();
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
@@ -36,14 +28,14 @@ export const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.email || !formData.password) {
-            setErrorMessage("Veuillez remplir tous les champs obligatoire.");
+            setErrorMessage("Veuillez remplir tous les champs obligatoires.");
             return;
         }
         setIsSubmitting(true);
         try {
-            await api.auth.login(formData);
-        } catch {
-            setErrorMessage("Identifiants incorrects. Veuillez réessayer.");
+            await login(formData);
+        } catch (error) {
+            setErrorMessage(getErrorMessage(error, "Erreur lors de la connexion."));
         } finally {
             setIsSubmitting(false);
         }
@@ -56,14 +48,14 @@ export const LoginPage = () => {
                     <div className="w-25 h-25 rounded-full flex items-center justify-center bg-core-bg shadow-neu-flat p-3 mb-2">
                         <img className="w-full h-full object-contain" src="/logo.png" alt="Logo PingCortex" />
                     </div>
-                    <h2 className="text-3xl font-extrabold tracking-tight text-primary">
+                    <h2 className="text-3xl font-extrabold tracking-tight text-primary-strong">
                         Ping<span className="text-main-text">Cortex</span>
                     </h2>
                     <p className="text-xs text-sub-text">Bienvenue sur votre espace d'apprentissage</p>
                 </div>
 
                 {errorMessage && (
-                    <div className="p-3 rounded-neu-sm bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs text-center font-medium">
+                    <div role="alert" className="p-3 rounded-neu-sm bg-danger/10 border border-danger/30 text-danger text-xs text-center font-medium">
                         {errorMessage}
                     </div>
                 )}
@@ -74,9 +66,10 @@ export const LoginPage = () => {
                         name="email"
                         type="email"
                         placeholder="etudiant@gmail.com"
-                        icon={<EmailIcon />}
+                        icon={<MailIcon size={16}/>}
                         value={formData.email}
                         onChange={handleChange}
+                        autoComplete="email"
                         required
                     />
                     <SoftInput
@@ -84,27 +77,15 @@ export const LoginPage = () => {
                         name="password"
                         type="password"
                         placeholder="••••••••"
-                        icon={<LockIcon />}
+                        icon={<LockIcon size={16} />}
                         value={formData.password}
                         onChange={handleChange}
+                        autoComplete="current-password"
                         required
                     />
 
-                    <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
-                        <label className="flex items-center gap-2 text-sub-text cursor-pointer select-none">
-                            <input
-                                type="checkbox"
-                                className="w-4 h-4 rounded border-on-primary text-secondary focus:ring-secondary/50 accent-secondary cursor-pointer"
-                            />
-                            Se souvenir de moi
-                        </label>
-                        <a href="#forgot" className="text-secondary/90 hover:text-secondary font-medium transition-colors">
-                            Mot de passe oublié ?
-                        </a>
-                    </div>
-
-                    <Button variant="primary" isGlowing className="w-full mt-2" disabled={isSubmitting} type="submit">
-                        {isSubmitting ? "Connexion en cours..." : "Se connecter"}
+                    <Button variant="primary" isGlowing className="w-full mt-2" loading={isSubmitting} type="submit">
+                        Se connecter
                     </Button>
                 </form>
 

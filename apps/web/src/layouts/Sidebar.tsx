@@ -9,8 +9,10 @@ import {
     ChevronRight,
     LogOut,
 } from 'lucide-react';
+import { useAuth } from "../hooks/useAuth";
 
 export const Sidebar: React.FC = () => {
+    const { user, logout } = useAuth();
     const [isCollapsed, setIsCollapsed] = useState(false);
     
     const navItems = [
@@ -19,6 +21,10 @@ export const Sidebar: React.FC = () => {
         { to: '/revision', label: 'Révision (Flashcards)', icon: BrainCircuit },
         { to: '/settings', label: 'Paramètres', icon: Settings },
     ];
+
+    const handleLogout = async () => {
+        return logout();
+    }
 
     return (
         <aside
@@ -87,19 +93,20 @@ export const Sidebar: React.FC = () => {
                 {!isCollapsed && (
                     <div className="flex items-center gap-2.5 overflow-hidden">
                         <div className="h-8 w-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
-                            E
+                            {user?.name.charAt(0).toUpperCase() || '?'}
                         </div>
                         <div className="flex flex-col truncate">
                             <span className="text-xs font-bold text-main-text truncate">
-                                Étudiant
+                                {user?.name.trim() || '?'}
                             </span>
                             <span className="text-[10px] text-sub-text truncate">
-                                etudiant@pingcortex.com
+                                {user?.email.trim() || '?'}
                             </span>
                         </div>
                     </div>
                 )}
                 <button
+                    onClick={handleLogout}
                     title="Déconnexion"
                     className="p-2 rounded-xl text-sub-text hover:text-rose-500 transition-colors"
                 >

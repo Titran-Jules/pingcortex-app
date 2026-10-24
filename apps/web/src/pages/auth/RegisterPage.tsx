@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { api } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { MailIcon, LockIcon, User2Icon, GraduationCap } from 'lucide-react';
 import type { UserRegister } from "@pingcortex/shared-types";
-import { NeumorphicCard, SoftInput, Button } from "@pingcortex/ui";
+import { NeumorphicCard, SoftInput, Button, toast } from "@pingcortex/ui";
+import { getApiError } from "@pingcortex/api-client";
+import { getErrorMessage } from "../../errors/getErrorMessage";
 
 export interface RegisterFormData {
     email: string;
@@ -12,32 +16,10 @@ export interface RegisterFormData {
     level: string;
 }
 
-const EmailIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-);
-
-const LockIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-    </svg>
-);
-
-const UserIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-    </svg>
-);
-
-const AcademicIcon = () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 14l9-5-9-5-9 5 9 5z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-    </svg>
-);
-
 export const RegisterPage = () => {
+    const navigate = useNavigate();
+    const { register } = useAuth();
+
     const [formData, setFormData] = useState<RegisterFormData>({
         email: "",
         password: "",
@@ -48,6 +30,7 @@ export const RegisterPage = () => {
     });
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [errors, setErrors] = useState<Partial<Record<keyof RegisterFormData, string>>>({});
+    const [submitError, setSubmitError] = useState<string | null>(null);
     const [step, setStep] = useState<number>(1);
 
     const stepsDetails = [
@@ -63,6 +46,7 @@ export const RegisterPage = () => {
         if (errors[name as keyof RegisterFormData]) {
             setErrors((prev) => ({ ...prev, [name]: undefined }));
         }
+        if (submitError) setSubmitError(null);
     };
 
     const validateStep = (currentStep: number): boolean => {
@@ -81,9 +65,9 @@ export const RegisterPage = () => {
         }
 
         if (currentStep === 2) {
-            if (!formData.lastName) newErrors.lastName = "Le nom est requis.";
-            if (!formData.firstName) newErrors.firstName = "Le prénom est requis.";
-            if (!formData.level) newErrors.level = "Votre parcours est requis.";
+            if (!formData.lastName.trim()) newErrors.lastName = "Le nom est requis.";
+            if (!formData.firstName.trim()) newErrors.firstName = "Le prénom est requis.";
+            if (!formData.level.trim()) newErrors.level = "Votre parcours est requis.";
         }
 
         setErrors(newErrors);
@@ -94,29 +78,37 @@ export const RegisterPage = () => {
         if (validateStep(step)) {
             setStep((prev) => Math.min(prev + 1, 3));
         }
-    }
+    };
 
-    const userRegister = (data: RegisterFormData): UserRegister => {
-        const name = data.firstName + " " + data.lastName;
-        const email = data.email;
-        const password = data.password;
-        const level = data.level;
+    const userRegisterPayload = (): UserRegister => {
         return {
-            "email": email,
-            "name": name,
-            "password": password,
-            "level": level
+            email: formData.email.trim(),
+            name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
+            password: formData.password,
+            level: formData.level.trim(),
         };
-    }
+    };
 
     const handleFinalSubmit = async () => {
         if (!validateStep(1) || !validateStep(2)) return;
 
         setIsSubmitting(true);
+        setSubmitError(null);
+
         try {
-            await api.auth.register(userRegister(formData));
-        } catch {
-            alert("Erreur lors de l'inscription");
+            const outcome = await register(userRegisterPayload());
+            if (outcome === 'registered') {
+                toast.success('Compte créé', 'Connecte-toi pour continuer.');
+                navigate('/login', { replace: true });
+            }
+        } catch (error) {
+            const { code } = getApiError(error);
+            if (code === 'EMAIL_ALREADY_EXISTS') {
+                setErrors({ email: getErrorMessage(error, "Cette adresse email est déjà utilisée.") });
+                setStep(1);
+            } else {
+                setSubmitError(getErrorMessage(error, "Erreur lors de l'inscription."));
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -135,7 +127,7 @@ export const RegisterPage = () => {
                                 {index < stepsDetails.length - 1 && (
                                     <div
                                         className={`hidden lg:block absolute left-6 top-12 w-0.5 h-25 transition-colors duration-300 ${
-                                            isCompleted ? "bg-emerald-500" : "bg-sub-text/20"
+                                            isCompleted ? "bg-success" : "bg-sub-text/20"
                                         }`}
                                     />
                                 )}
@@ -144,21 +136,21 @@ export const RegisterPage = () => {
                                         isActive
                                         ? "bg-secondary text-on-secondary shadow-glow-primary scale-110"
                                         : isCompleted
-                                        ? "bg-emerald-500 text-on-secondary shadow-neu-flat"
+                                        ? "bg-success text-on-secondary shadow-neu-flat"
                                         : "bg-core-bg text-sub-text shadow-neu-pressed"
                                     }`}
                                 >
-                                {isCompleted ? "✓" : s.num}
-                            </div>
+                                    {isCompleted ? "✓" : s.num}
+                                </div>
 
-                        <div className="hidden lg:flex flex-col">
-                            <span className={`text-sm font-semibold ${isActive ? "text-secondary" : "text-sub-text"}`}>
-                                {s.title}
-                            </span>
-                            <span className="text-xs text-sub-text">{s.desc}</span>
-                        </div>
-                    </div>
-                    );
+                                <div className="hidden lg:flex flex-col">
+                                    <span className={`text-sm font-semibold ${isActive ? "text-secondary" : "text-sub-text"}`}>
+                                        {s.title}
+                                    </span>
+                                    <span className="text-xs text-sub-text">{s.desc}</span>
+                                </div>
+                            </div>
+                        );
                     })}
                 </div>
 
@@ -166,114 +158,125 @@ export const RegisterPage = () => {
                     <div className="flex items-center gap-4 border-b border-sub-text/20 pb-6">
                         <img src="/logo.png" alt="Logo PingCortex" className="w-16 h-16 object-contain" />
                         <div>
-                            <h2 className="text-2xl font-extrabold tracking-tight text-primary">
+                            <h2 className="text-2xl font-extrabold tracking-tight text-primary-strong">
                                 Ping<span className="text-main-text">Cortex</span>
                             </h2>
                             <p className="text-xs text-sub-text">Plateforme de tutorat intelligent par IA</p>
                         </div>
                     </div>
 
+                    {submitError && (
+                        <div role="alert" className="p-3 rounded-neu-sm bg-danger/10 border border-danger/30 text-danger text-xs text-center font-medium">
+                            {submitError}
+                        </div>
+                    )}
+
                     {step === 1 && (
                         <div className="flex flex-col gap-4">
-                        <SoftInput
-                            label="Adresse Email"
-                            name="email"
-                            type="email"
-                            placeholder="etudiant@gmail.com"
-                            icon={<EmailIcon />}
-                            value={formData.email}
-                            onChange={handleChange}
-                            error={errors.email}
-                        />
-                        <SoftInput
-                            label="Mot de passe"
-                            name="password"
-                            type="password"
-                            placeholder="••••••••"
-                            icon={<LockIcon />}
-                            value={formData.password}
-                            onChange={handleChange}
-                            error={errors.password}
-                        />
-                        <SoftInput
-                            label="Vérifier le mot de passe"
-                            name="confirmPassword"
-                            type="password"
-                            placeholder="••••••••"
-                            icon={<LockIcon />}
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            error={errors.confirmPassword}
-                        />
+                            <SoftInput
+                                label="Adresse Email"
+                                name="email"
+                                type="email"
+                                placeholder="etudiant@gmail.com"
+                                icon={<MailIcon size={16}/>}
+                                value={formData.email}
+                                onChange={handleChange}
+                                error={errors.email}
+                                autoComplete="email"
+                            />
+                            <SoftInput
+                                label="Mot de passe"
+                                name="password"
+                                type="password"
+                                placeholder="••••••••"
+                                icon={<LockIcon size={16}/>}
+                                value={formData.password}
+                                onChange={handleChange}
+                                error={errors.password}
+                                autoComplete="new-password"
+                            />
+                            <SoftInput
+                                label="Vérifier le mot de passe"
+                                name="confirmPassword"
+                                type="password"
+                                placeholder="••••••••"
+                                icon={<LockIcon size={16} />}
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                error={errors.confirmPassword}
+                                autoComplete="new-password"
+                            />
                         </div>
                     )}
 
                     {step === 2 && (
                         <div className="flex flex-col gap-4">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <SoftInput
+                                    label="Nom"
+                                    name="lastName"
+                                    type="text"
+                                    placeholder="ANDRIANATOMBO"
+                                    icon={<User2Icon size={16} />}
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                    error={errors.lastName}
+                                    autoComplete="family-name"
+                                />
+                                <SoftInput
+                                    label="Prénom(s)"
+                                    name="firstName"
+                                    type="text"
+                                    placeholder="Jules Titran"
+                                    icon={<User2Icon size={16} />}
+                                    value={formData.firstName}
+                                    onChange={handleChange}
+                                    error={errors.firstName}
+                                    autoComplete="given-name"
+                                />
+                            </div>
                             <SoftInput
-                            label="Nom"
-                            name="lastName"
-                            type="text"
-                            placeholder="ANDRIANATOMBO"
-                            icon={<UserIcon />}
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            error={errors.lastName}
+                                label="Votre parcours actuel"
+                                name="level"
+                                type="text"
+                                placeholder="Ex: L1 Informatique, M1 Intelligence Artificielle..."
+                                icon={<GraduationCap size={16} />}
+                                value={formData.level}
+                                onChange={handleChange}
+                                error={errors.level}
                             />
-                            <SoftInput
-                            label="Prénom(s)"
-                            name="firstName"
-                            type="text"
-                            placeholder="Jules Titran"
-                            icon={<UserIcon />}
-                            value={formData.firstName}
-                            onChange={handleChange}
-                            error={errors.firstName}
-                            />
-                        </div>
-                        <SoftInput
-                            label="Votre parcours actuel"
-                            name="level"
-                            type="text"
-                            placeholder="Ex: L1 Informatique, M1 Intelligence Artificielle..."
-                            icon={<AcademicIcon />}
-                            value={formData.level}
-                            onChange={handleChange}
-                            error={errors.level}
-                        />
                         </div>
                     )}
 
                     {step === 3 && (
                         <div className="flex flex-col gap-4 text-center py-4">
-                        <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl font-bold shadow-neu-pressed">
-                            ✓
-                        </div>
-                        <h4 className="text-lg font-semibold text-sub-text">Récapitulatif des informations</h4>
-                        <div className="text-left bg-core-bg p-4 rounded-neu-sm shadow-neu-pressed text-xs sm:text-sm space-y-2">
-                            <p><strong className="text-sub-text">Email :</strong> {formData.email}</p>
-                            <p><strong className="text-sub-text">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
-                            <p><strong className="text-sub-text">Parcours :</strong> {formData.level}</p>
-                        </div>
+                            <div className="w-16 h-16 mx-auto rounded-full bg-success/10 text-success flex items-center justify-center text-2xl font-bold shadow-neu-pressed">
+                                ✓
+                            </div>
+                            <h4 className="text-lg font-semibold text-sub-text">Récapitulatif des informations</h4>
+                            <div className="text-left bg-core-bg p-4 rounded-neu-sm shadow-neu-pressed text-xs sm:text-sm space-y-2">
+                                <p><strong className="text-sub-text">Email :</strong> {formData.email}</p>
+                                <p><strong className="text-sub-text">Nom & Prénom(s) :</strong> {formData.lastName} {formData.firstName}</p>
+                                <p><strong className="text-sub-text">Parcours :</strong> {formData.level}</p>
+                            </div>
                         </div>
                     )}
 
                     <div className="flex items-center justify-between pt-4 border-t border-sub-text/20 dark:border-slate-800/40">
                         {step > 1 ? (
-                        <Button variant="secondary" onClick={() => setStep(step - 1)}>
-                            Précédent
-                        </Button>
+                            <Button variant="secondary" onClick={() => setStep(step - 1)}>
+                                Précédent
+                            </Button>
                         ) : <div />}
 
                         {step < 3 ? (
-                        <Button variant="primary" isGlowing onClick={handleNextStep}>
-                            Suivant
-                        </Button>
+                            <Button variant="primary" isGlowing onClick={handleNextStep}>
+                                Suivant
+                            </Button>
                         ) : (
-                        <Button variant="primary" isGlowing disabled={isSubmitting} loading={isSubmitting} onClick={handleFinalSubmit}>
-                            {isSubmitting ? "Création du compte..." : "Finaliser l'inscription"}
-                        </Button>
+                            <Button variant="primary" isGlowing disabled={isSubmitting} loading={isSubmitting} onClick={handleFinalSubmit}>
+                                Finaliser l'inscription
+                            </Button>
                         )}
                     </div>
                 </NeumorphicCard>
