@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Bell, LogOut, Settings, Sparkles, ChevronDown } from 'lucide-react';
 import { ToggleTheme } from '@pingcortex/ui';
+import { useAuth } from '../hooks/useAuth';
 
 export const Header: React.FC = () => {
+    const { user, logout } = useAuth();
     const location = useLocation();
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -22,6 +24,8 @@ export const Header: React.FC = () => {
                 return 'Espace d\'apprentissage';
         }
     };
+
+    const firstName = user?.name.split(' ').filter((_, i) => i > 0).join(' ');
 
     return (
         <header className="w-full flex items-center justify-between px-8 py-5 bg-core-bg border-b border-main-text/10">
@@ -86,14 +90,14 @@ export const Header: React.FC = () => {
                         }`}
                     >
                         <div className="h-8 w-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shadow-sm">
-                            E
+                            {user?.name.charAt(0).toUpperCase() || '?'}
                         </div>
                         <div className="flex flex-col text-left">
                             <span className="text-xs font-bold text-main-text leading-tight">
-                                Étudiant
+                                {firstName}
                             </span>
                             <span className="text-[10px] text-sub-text font-medium">
-                                Standard
+                                {user?.level}
                             </span>
                         </div>
                         <ChevronDown size={14} className="text-sub-text ml-1" />
@@ -104,7 +108,7 @@ export const Header: React.FC = () => {
                             <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-sub-text hover:text-secondary rounded-xl transition-all hover:shadow-neu-pressed-sm">
                                 <Settings size={14} /> Mon Profil
                             </button>
-                            <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all">
+                            <button onClick={() => logout()} className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all">
                                 <LogOut size={14} /> Déconnexion
                             </button>
                         </div>

@@ -1,10 +1,9 @@
 import type React from "react";
 import { useAuth } from "../hooks/useAuth";
-import { Navigate, Outlet ,useLocation } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export const GuestRoute: React.FC = () => {
     const { status } = useAuth();
-    const location = useLocation();
 
     if (status === 'loading') {
         return (
@@ -15,8 +14,7 @@ export const GuestRoute: React.FC = () => {
     }
 
     if (status === 'authenticated') {
-        const stateFrom = (location.state as { from?: { pathname: string; search?: string }}).from;
-        const redirectTo = stateFrom ? `${stateFrom.pathname}${stateFrom.search || ''}` : '/dashboard';
+        const redirectTo = '/dashboard';
         return <Navigate to={redirectTo} replace />
     }
     return <Outlet />;
