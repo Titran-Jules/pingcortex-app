@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse } from "@pingcortex/shared-types";
 import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
@@ -73,5 +73,21 @@ export class PingCortexApi {
 
         getMastery: (conceptId: UUID) =>
             this.client.get<MasteryResponse>(`/concepts/${conceptId}/mastery`).then((res) => res.data),
+    };
+
+    quiz = {
+        getQuizQuestion: (conceptId: UUID) =>
+            this.client.post<QuizQuestionResponse>(`/concepts/${conceptId}/quiz`).then((res) => res.data),
+
+        submitAnswer: (questionId: UUID, data: QuizAttemptCreate) =>
+            this.client.post<QuizAttemptResponse>(`/quiz-questions/${questionId}/attempts`).then((res) => res.data),
+    };
+
+    feynman = {
+        getNextReviewActivity: (conceptId: UUID) =>
+            this.client.get<NextActivityResponse>(`/concepts/${conceptId}/next-review-activity`).then((res) => res.data),
+
+        submitFeynmanExplanation: (conceptId: UUID, data: FeynmanSubmissionCreate) =>
+            this.client.post<FeynmanSubmissionResponse>(`/concepts/${conceptId}/feynman-submissions`, data).then((res) => res.data),
     };
 }
