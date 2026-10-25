@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse, ChatSessionResponse, ChatMessageResponse, ChatMessageCreation, ChatExchangeResponse, ReviewDueResponse, ReviewCompletion, ReviewScheduleResponse } from "@pingcortex/shared-types";
 import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
@@ -80,7 +80,7 @@ export class PingCortexApi {
             this.client.post<QuizQuestionResponse>(`/concepts/${conceptId}/quiz`).then((res) => res.data),
 
         submitAnswer: (questionId: UUID, data: QuizAttemptCreate) =>
-            this.client.post<QuizAttemptResponse>(`/quiz-questions/${questionId}/attempts`).then((res) => res.data),
+            this.client.post<QuizAttemptResponse>(`/quiz-questions/${questionId}/attempts`, data).then((res) => res.data),
     };
 
     feynman = {
@@ -90,4 +90,23 @@ export class PingCortexApi {
         submitFeynmanExplanation: (conceptId: UUID, data: FeynmanSubmissionCreate) =>
             this.client.post<FeynmanSubmissionResponse>(`/concepts/${conceptId}/feynman-submissions`, data).then((res) => res.data),
     };
+
+    chat = {
+        addNewChatSession: (courseId: UUID) =>
+            this.client.post<ChatSessionResponse>(`/courses/${courseId}/chat-sessions`).then((res) => res.data),
+
+        getMessagesBySessionId: (sessionId: UUID) =>
+            this.client.get<ChatMessageResponse[]>(`/chat-sessions/${sessionId}/messages`).then((res) => res.data),
+
+        sendNewMessage: (sessionId: UUID, data: ChatMessageCreation) =>
+            this.client.post<ChatExchangeResponse>(`/chat-sessions/${sessionId}/messages`, data).then((res) => res.data),
+    };
+
+    review =  {
+        getReviewToday: () =>
+            this.client.get<ReviewDueResponse>('/reviews/today').then((res) => res.data),
+
+        markConceptReviewAsDone: (conceptId: UUID, data: ReviewCompletion) =>
+            this.client.post<ReviewScheduleResponse>(`/reviews/${conceptId}/complete`, data).then((res) => res.data),
+    }
 }
