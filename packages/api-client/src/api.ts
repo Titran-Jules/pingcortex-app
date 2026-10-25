@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate } from "@pingcortex/shared-types";
 import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
@@ -34,4 +34,29 @@ export class PingCortexApi {
         deleteApiKey: (apiKeyId: string) =>
             this.client.delete<void>(`/users/me/api-keys/${apiKeyId}`),
     };
+
+    courses = {
+        getCourses: () =>
+            this.client.get<CourseResponse[]>('/courses').then((res) => res.data),
+
+        addCourse: (data: CourseCreation) =>
+            this.client.post<CourseResponse>('/courses', data).then((res) => res.data),
+
+        getCourseById: (courseId: UUID) =>
+            this.client.get<CourseResponse>(`/courses/${courseId}`).then((res) => res.data),
+
+        updateCourse: (courseId: UUID, data: CourseUpdate) =>
+            this.client.patch<CourseResponse>(`/courses/${courseId}`, data).then((res) => res.data),
+
+        updateCourseActivity: (courseId: UUID, data: CourseActiveUpdate) =>
+            this.client.patch<CourseResponse>(`/courses/${courseId}/active`, data).then((res) => res.data),
+
+        getMaterialsByCourseId: (courseId: UUID) =>
+            this.client.get<MaterialResponse[]>(`/courses/${courseId}/materials`).then((res) => res.data),
+
+        addMaterialByCourseId: (courseId: UUID, data: MaterialCreate) =>
+            this.client.post<MaterialResponse>(`/courses/${courseId}/`, data).then((res) => res.data),
+    };
+
+    
 }
