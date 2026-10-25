@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse } from "@pingcortex/shared-types";
 import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
@@ -35,7 +35,7 @@ export class PingCortexApi {
             this.client.delete<void>(`/users/me/api-keys/${apiKeyId}`),
     };
 
-    courses = {
+    course = {
         getCourses: () =>
             this.client.get<CourseResponse[]>('/courses').then((res) => res.data),
 
@@ -58,5 +58,20 @@ export class PingCortexApi {
             this.client.post<MaterialResponse>(`/courses/${courseId}/`, data).then((res) => res.data),
     };
 
-    
+    concept = {
+        getConceptsByCourseId: (courseId: UUID) =>
+            this.client.get<ConceptResponse[]>(`/courses/${courseId}/concepts`).then((res) => res.data),
+
+        coveredConcept: (courseId: UUID, conceptId: UUID) =>
+            this.client.post<ConceptResponse>(`/courses/${courseId}/concepts/${conceptId}/confirm-coverage`).then((res) => res.data),
+
+        revertCoverageConcept: (courseId: UUID, conceptId: UUID) =>
+            this.client.post<ConceptResponse>(`/courses/${courseId}/concepts/${conceptId}/revert-coverage`).then((res) => res.data),
+
+        advanceCoverageConcept: (courseId: UUID, conceptId: UUID) =>
+            this.client.post<ConceptResponse>(`/courses/${courseId}/concepts/${conceptId}/advance`).then((res) => res.data),
+
+        getMastery: (conceptId: UUID) =>
+            this.client.get<MasteryResponse>(`/concepts/${conceptId}/mastery`).then((res) => res.data),
+    };
 }
