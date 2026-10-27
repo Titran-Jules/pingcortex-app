@@ -108,5 +108,5 @@ export class PingCortexApi {
 
         markConceptReviewAsDone: (conceptId: UUID, data: ReviewCompletion) =>
             this.client.post<ReviewScheduleResponse>(`/reviews/${conceptId}/complete`, data).then((res) => res.data),
-    }
+    };
 }
