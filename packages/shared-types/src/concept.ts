@@ -14,5 +14,5 @@ export interface ConceptResponse {
 export interface MasteryResponse {
     conceptId: UUID;
     masteryLevel: number;
-    lastReviewedAt: string;
+    lastReviewedAt: string | null;
 }

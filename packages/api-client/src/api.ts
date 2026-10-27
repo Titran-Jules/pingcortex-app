@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse, ChatSessionResponse, ChatMessageResponse, ChatMessageCreation, ChatExchangeResponse, ReviewDueResponse, ReviewCompletion, ReviewScheduleResponse } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse, ChatSessionResponse, ChatMessageResponse, ChatMessageCreation, ChatExchangeResponse, ReviewDueResponse, ReviewCompletion, ReviewScheduleResponse, UsageSummaryResponse, UserUpdate } from "@pingcortex/shared-types";
 import type { AxiosInstance } from "axios";
 
 export class PingCortexApi {
@@ -22,6 +22,9 @@ export class PingCortexApi {
         getProfile: () =>
             this.client.get<UserResponse>('/users/me').then((res) => res.data),
 
+        updateProfile: (data: UserUpdate) =>
+            this.client.patch<UserResponse>('/users/me', data).then((res) => res.data),
+
         getApiKeys: () =>
             this.client.get<ApiKeyResponse[]>('/users/me/api-keys').then((res) => res.data),
 
@@ -33,6 +36,9 @@ export class PingCortexApi {
 
         deleteApiKey: (apiKeyId: string) =>
             this.client.delete<void>(`/users/me/api-keys/${apiKeyId}`),
+
+        getUsageSummary: () =>
+            this.client.get<UsageSummaryResponse>('/users/me/usage').then((res) => res.data),
     };
 
     course = {
@@ -55,7 +61,7 @@ export class PingCortexApi {
             this.client.get<MaterialResponse[]>(`/courses/${courseId}/materials`).then((res) => res.data),
 
         addMaterialByCourseId: (courseId: UUID, data: MaterialCreate) =>
-            this.client.post<MaterialResponse>(`/courses/${courseId}/`, data).then((res) => res.data),
+            this.client.post<MaterialResponse>(`/courses/${courseId}/materials`, data).then((res) => res.data),
     };
 
     concept = {
@@ -104,7 +110,7 @@ export class PingCortexApi {
 
     review =  {
         getReviewToday: () =>
-            this.client.get<ReviewDueResponse>('/reviews/today').then((res) => res.data),
+            this.client.get<ReviewDueResponse[]>('/reviews/today').then((res) => res.data),
 
         markConceptReviewAsDone: (conceptId: UUID, data: ReviewCompletion) =>
             this.client.post<ReviewScheduleResponse>(`/reviews/${conceptId}/complete`, data).then((res) => res.data),
