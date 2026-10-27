@@ -46,7 +46,10 @@ export class PingCortexApi {
             this.client.get<CourseResponse[]>('/courses', config).then((res) => res.data),
 
         addCourse: (data: CourseCreation, config?: AxiosRequestConfig) =>
-            this.client.post<CourseResponse>('/courses', data, config).then((res) => res.data),
+            this.client.post<CourseResponse>('/courses', data, {
+                ...config,
+                timeout: 90_000,
+            }).then((res) => res.data),
 
         getCourseById: (courseId: UUID, config?: AxiosRequestConfig) =>
             this.client.get<CourseResponse>(`/courses/${courseId}`, config).then((res) => res.data),
@@ -94,7 +97,10 @@ export class PingCortexApi {
             this.client.get<NextActivityResponse>(`/concepts/${conceptId}/next-review-activity`, config).then((res) => res.data),
 
         submitFeynmanExplanation: (conceptId: UUID, data: FeynmanSubmissionCreate, config?: AxiosRequestConfig) =>
-            this.client.post<FeynmanSubmissionResponse>(`/concepts/${conceptId}/feynman-submissions`, data, config).then((res) => res.data),
+            this.client.post<FeynmanSubmissionResponse>(`/concepts/${conceptId}/feynman-submissions`, data, {
+                ...config,
+                timeout: 90_000,
+            }).then((res) => res.data),
     };
 
     chat = {
@@ -105,7 +111,10 @@ export class PingCortexApi {
             this.client.get<ChatMessageResponse[]>(`/chat-sessions/${sessionId}/messages`, config).then((res) => res.data),
 
         sendNewMessage: (sessionId: UUID, data: ChatMessageCreation, config?: AxiosRequestConfig) =>
-            this.client.post<ChatExchangeResponse>(`/chat-sessions/${sessionId}/messages`, data, config).then((res) => res.data),
+            this.client.post<ChatExchangeResponse>(`/chat-sessions/${sessionId}/messages`, data, {
+                ...config,
+                timeout: 90_000,
+            }).then((res) => res.data),
     };
 
     review =  {
