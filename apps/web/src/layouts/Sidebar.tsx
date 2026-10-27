@@ -106,6 +106,7 @@ export const Sidebar: React.FC = () => {
                     </div>
                 )}
                 <button
+                    aria-label="Déconnexion"
                     onClick={handleLogout}
                     title="Déconnexion"
                     className="p-2 rounded-xl text-sub-text hover:text-rose-500 transition-colors"

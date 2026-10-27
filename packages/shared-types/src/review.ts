@@ -1,5 +1,5 @@
+import type { ActivityType } from "./activityType";
 import type { UUID } from "./uuid";
-
 export interface ReviewDueResponse {
     conceptId: UUID;
     conceptName: string;
@@ -18,4 +18,8 @@ export interface ReviewScheduleResponse {
     conceptId: UUID;
     nextReviewAt: string;
     intervalDays: number;
+}
+
+export interface NextActivityResponse {
+    suggestedActivity: ActivityType;
 }

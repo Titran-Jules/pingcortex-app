@@ -1,3 +1,4 @@
+export * from './activityType';
 export * from './apiKey';
 export * from './chat';
 export * from './concept';
