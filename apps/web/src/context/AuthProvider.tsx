@@ -7,15 +7,26 @@ import { sessionHint } from "../api/sessionHint";
 import { api } from "../api/api";
 import { tokenStore } from "@pingcortex/api-client";
 import { toast } from "@pingcortex/ui";
+import { queryClient } from "../lib/queryClient";
 
 const SIGNED_OUT: Session = { status: 'unauthenticated', user: null };
+
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [session, setSession] = useState<Session>(() => 
         sessionHint.has() ? { status: 'loading', user: null } : SIGNED_OUT
     );
 
+    const clearUserSessionAndCache = async () => {
+        await queryClient.cancelQueries();
+        queryClient.clear();
+        tokenStore.clearAccessToken();
+        sessionHint.clear();
+        setSession(SIGNED_OUT);
+    };
+
     const statusRef = useRef<AuthStatus>(session.status);
+
     useEffect(() => {
         statusRef.current = session.status;
     }, [session.status]);
@@ -88,9 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, [login]);
 
     const logout = useCallback(async () => {
-        tokenStore.clearAccessToken();
-        sessionHint.clear();
-        setSession(SIGNED_OUT);
+        clearUserSessionAndCache();
 
         api.auth.logout().catch(() => {
             return;
