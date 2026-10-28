@@ -126,9 +126,6 @@ export class PingCortexApi {
     review =  {
         getReviewToday: (config?: AxiosRequestConfig) =>
             this.client.get<ReviewDueResponse[]>('/reviews/today', config).then((res) => res.data),
-
-        markConceptReviewAsDone: (conceptId: UUID, data: ReviewCompletion, config?: AxiosRequestConfig) =>
-            this.client.post<ReviewScheduleResponse>(`/reviews/${conceptId}/complete`, data, config).then((res) => res.data),
     };
 
     dashboard = {
