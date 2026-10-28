@@ -1,4 +1,4 @@
-import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse, ChatSessionResponse, ChatMessageResponse, ChatMessageCreation, ChatExchangeResponse, ReviewDueResponse, ReviewCompletion, ReviewScheduleResponse, UsageSummaryResponse, UserUpdate } from "@pingcortex/shared-types";
+import type { ApiKeyCreate, ApiKeyResponse, LoginRequest, LoginResponse, UserRegister, UserResponse, ApiKeyActive, CourseResponse, CourseCreation, UUID, CourseUpdate, CourseActiveUpdate, MaterialResponse, MaterialCreate, ConceptResponse, MasteryResponse, QuizQuestionResponse, QuizAttemptResponse, QuizAttemptCreate, NextActivityResponse, FeynmanSubmissionCreate, FeynmanSubmissionResponse, ChatSessionResponse, ChatMessageResponse, ChatMessageCreation, ChatExchangeResponse, ReviewDueResponse, ReviewCompletion, ReviewScheduleResponse, UsageSummaryResponse, UserUpdate, CourseProgressResponse } from "@pingcortex/shared-types";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export class PingCortexApi {
@@ -104,6 +104,9 @@ export class PingCortexApi {
     };
 
     chat = {
+        getChatSessions: (courseId: UUID, config?: AxiosRequestConfig) =>
+            this.client.get<ChatSessionResponse[]>(`/courses/${courseId}/chat-sessions`, config).then((res) => res.data),
+
         addNewChatSession: (courseId: UUID, config?: AxiosRequestConfig) =>
             this.client.post<ChatSessionResponse>(`/courses/${courseId}/chat-sessions`, config).then((res) => res.data),
 
@@ -123,5 +126,10 @@ export class PingCortexApi {
 
         markConceptReviewAsDone: (conceptId: UUID, data: ReviewCompletion, config?: AxiosRequestConfig) =>
             this.client.post<ReviewScheduleResponse>(`/reviews/${conceptId}/complete`, data, config).then((res) => res.data),
+    };
+
+    dashboard = {
+        getCourseProgress: (isActive?: boolean, config?: AxiosRequestConfig) =>
+            this.client.get<CourseProgressResponse[]>(`/dashboard?isActive=${isActive}`, config).then((res) => res.data), 
     };
 }

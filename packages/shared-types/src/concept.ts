@@ -9,6 +9,7 @@ export interface ConceptResponse {
     position: number;
     coverageStatus: CoverageStatus;
     suggestedCoverage: boolean;
+    masteryLevel: number | null;
 }
 
 export interface MasteryResponse {
