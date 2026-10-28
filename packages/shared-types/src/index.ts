@@ -13,3 +13,4 @@ export * from './token';
 export * from './user';
 export * from './uuid';
 export * from './auth';
+export * from './courseProgress';

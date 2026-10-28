@@ -18,6 +18,7 @@ const messages: Record<string, string> = {
     "NO_ACTIVE_KEY": "Aucune clé API active trouvée.",
     "UNSUPPORTED_PROVIDER": "Fournisseur non pris en charge.",
     "AI_PROVIDER_ERROR": "Erreur lors de la communication avec le service d'IA.",
+    "ANALYSIS_NOT_RETRYABLE": "Ce cours ne peut pas être re-analyser.",
     "INTERNAL_ERROR": "Le serveur a rencontré un problème interne.",
 };
 
