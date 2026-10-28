@@ -50,6 +50,9 @@ export class PingCortexApi {
                 ...config,
                 timeout: 90_000,
             }).then((res) => res.data),
+        
+        reRunAnalysis: (courseId: UUID, config?: AxiosRequestConfig) =>
+            this.client.post<CourseResponse>(`/courses/${courseId}/analyze`, config).then((res) => res.data),
 
         getCourseById: (courseId: UUID, config?: AxiosRequestConfig) =>
             this.client.get<CourseResponse>(`/courses/${courseId}`, config).then((res) => res.data),
