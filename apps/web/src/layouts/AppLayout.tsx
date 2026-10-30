@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { useRouteTitle } from '../hooks/useRouteTitle';
 
 export const AppLayout: React.FC = () => {
+    const title = useRouteTitle();
+
+    useEffect(() => {
+        document.title = `${title} | PingCortex`;
+    }, [title]);
 
     return (
         <div className="flex h-screen w-full bg-core-bg text-sub-text overflow-hidden font-sans">

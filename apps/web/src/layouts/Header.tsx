@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Bell, LogOut, Settings, Sparkles, ChevronDown } from 'lucide-react';
 import { ToggleTheme } from '@pingcortex/ui';
 import { useAuth } from '../hooks/useAuth';
+import { useRouteTitle } from '../hooks/useRouteTitle';
 
 export const Header: React.FC = () => {
     const { user, logout } = useAuth();
-    const location = useLocation();
+    const title = useRouteTitle();
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
-
-    const getPageTitle = (pathname: string) => {
-        switch (pathname) {
-            case '/dashboard':
-                return 'Tableau de bord de révision';
-            case '/courses':
-                return 'Mes Cours & Fiches IA';
-            case '/revision':
-                return 'Session de Révision';
-            case '/settings':
-                return 'Paramètres du compte';
-            default:
-                return 'Espace d\'apprentissage';
-        }
-    };
 
     const firstName = user?.name.split(' ').filter((_, i) => i > 0).join(' ');
 
@@ -31,7 +16,7 @@ export const Header: React.FC = () => {
         <header className="w-full flex items-center justify-between px-8 py-5 bg-core-bg border-b border-main-text/10">
             <div>
                 <h1 className="text-2xl font-black text-main-text tracking-tight">
-                {getPageTitle(location.pathname)}
+                {title}
                 </h1>
             </div>
 
