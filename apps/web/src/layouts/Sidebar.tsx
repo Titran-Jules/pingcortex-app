@@ -17,8 +17,8 @@ export const Sidebar: React.FC = () => {
     
     const navItems = [
         { to: '/dashboard', label: 'Tableau de bord', icon: LayoutDashboard, end: true },
-        { to: '/courses', label: 'Mes Cours & Fiches', icon: BookOpen },
-        { to: '/revision', label: 'Révision (Flashcards)', icon: BrainCircuit },
+        { to: '/courses', label: 'Mes cours', icon: BookOpen },
+        { to: '/review', label: 'Révision', icon: BrainCircuit, end: true },
         { to: '/settings', label: 'Paramètres', icon: Settings },
     ];
 
