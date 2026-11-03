@@ -7,7 +7,7 @@ export const dashboardRoutes: RouteObject[] = [
     {
         path: 'dashboard',
         handle: { title: 'Tableau de bord' } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Dashboard () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (await import('../pages/dashboard/DashboardPage')).DashboardPage }),
     },
     {
         path: 'courses',
