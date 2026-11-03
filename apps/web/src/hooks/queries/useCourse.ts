@@ -5,10 +5,6 @@ import { queryKeys } from '../../lib/queryKeys';
 export const isAnalysisInProgress = (status: string | undefined) =>
     status === 'PENDING' || status === 'ANALYZING';
 
-/**
- * Détail d'un cours : refetchInterval 3 s tant que PENDING ou ANALYZING,
- * arrêt sinon (setup prêt à ajouter plus de setters via d'autres onglets).
- */
 export const useCourse = (courseId: string | undefined, enabled = true) =>
     useQuery({
         queryKey: queryKeys.courses.detail(courseId ?? ''),
