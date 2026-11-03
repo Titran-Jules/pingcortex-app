@@ -3,7 +3,7 @@ import { CheckCircle2, CircleAlert, TriangleAlert, type LucideIcon } from 'lucid
 import { cn } from '../utils/cn';
 
 export type Variants = 'neutral' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-export type BadgeSize = 'sm' | 'md' | 'lg';
+export type BadgeSize = 'xs' |'sm' | 'md' | 'lg';
 
 export interface BadgeProps {
     variant?: Variants;
@@ -15,6 +15,7 @@ export interface BadgeProps {
 }
 
 const SIZES: Record<BadgeSize, { box: string; icon: number }> = {
+    xs: { box: 'gap-1 px-2 py-0.5 text-[0.6rem]', icon: 10 },
     sm: { box: 'gap-1.5 px-2.5 py-1 text-xs', icon: 12 },
     md: { box: 'gap-2 px-3 py-1.5 text-sm', icon: 14 },
     lg: { box: 'gap-2 px-4 py-2 text-base', icon: 16 },

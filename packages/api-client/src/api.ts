@@ -130,6 +130,9 @@ export class PingCortexApi {
 
     dashboard = {
         getCourseProgress: (isActive?: boolean, config?: AxiosRequestConfig) =>
-            this.client.get<CourseProgressResponse[]>(`/dashboard?isActive=${isActive}`, config).then((res) => res.data), 
+            this.client.get<CourseProgressResponse[]>('/dashboard', {
+                ...config,
+                params: isActive === undefined ? undefined : { isActive },
+            }).then((res) => res.data),
     };
 }
