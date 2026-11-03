@@ -7,7 +7,6 @@ import {
     HelpCircle,
     PlayCircle,
     Plus,
-    PlusCircle,
     RotateCcw,
     Sparkles,
     TriangleAlert,
