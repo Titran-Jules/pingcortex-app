@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getApiError } from '@pingcortex/api-client';
-import { AnalysisStatusBadge, Badge, Button, Tabs, TabsContent, TabsList, TabsTrigger, toast } from '@pingcortex/ui';
+import { AnalysisStatusBadge, Button, Tabs, TabsContent, TabsList, TabsTrigger, toast } from '@pingcortex/ui';
 import {
     BrainCircuit,
     BookOpen,
