@@ -122,12 +122,6 @@ export const CoursesPage: React.FC = () => {
                 </div>
             )}
 
-            {courses && courses.length > 1 && (
-                <p className="text-[11px] text-sub-text">
-                    Un seul cours peut être actif à la fois : il pilote les révisions du jour.
-                </p>
-            )}
-
             <Modal
                 open={modalOpen}
                 onOpenChange={setModalOpen}
