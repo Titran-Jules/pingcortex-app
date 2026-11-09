@@ -17,6 +17,15 @@ const COVERAGE_BADGES: Record<CoverageStatus, { label: string; variant: 'neutral
     COVERED: { label: 'Couvert', variant: 'success' },
 };
 
+const resolveCoverage = (concept: ConceptResponse) => {
+    const isKnown =
+        concept.coverageStatus === 'NOT_COVERED' ||
+        concept.coverageStatus === 'ANTICIPATED_COVERED' ||
+        concept.coverageStatus === 'COVERED';
+    const status: CoverageStatus = isKnown ? concept.coverageStatus : 'NOT_COVERED';
+    return { status, badge: COVERAGE_BADGES[status] };
+};
+
 const MutationError = ({ error, onRetry }: { error: unknown; onRetry: () => void }) => (
     <div className="flex items-center justify-between gap-3 rounded-2xl bg-core-bg px-4 py-3 shadow-neu-pressed-sm">
         <span className="inline-flex items-center gap-2 text-xs font-bold text-sub-text">
@@ -29,8 +38,8 @@ const MutationError = ({ error, onRetry }: { error: unknown; onRetry: () => void
     </div>
 );
 
-const MasteryLabel: React.FC<{ mastery: number | null }> = ({ mastery }) => {
-    if (mastery === null) {
+const MasteryLabel: React.FC<{ mastery: number | null | undefined }> = ({ mastery }) => {
+    if (mastery === null || mastery === undefined) {
         return (
             <div className="flex h-10 items-center text-[11px] text-sub-text" title="Maîtrise inconnue">
                 <span className="text-xs font-black tabular-nums text-sub-text">–</span>
@@ -52,13 +61,13 @@ const ConceptRow: React.FC<{
     onConfirm: (concept: ConceptResponse) => void;
     onRevert: (concept: ConceptResponse) => void;
 }> = ({ concept, isBusy, onAdvance, onConfirm, onRevert }) => {
-    const { variant, label } = COVERAGE_BADGES[concept.coverageStatus];
+    const { status, badge } = resolveCoverage(concept);
     return (
         <article className="flex flex-col gap-3 rounded-2xl bg-core-bg p-5 shadow-neu-pressed-sm sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1 sm:min-w-0 sm:flex-1">
                 <div className="flex items-center gap-2">
-                    <Badge variant={variant} size="sm">
-                        {label}
+                    <Badge variant={badge.variant} size="sm">
+                        {badge.label}
                     </Badge>
                 </div>
                 <h4 className="text-sm font-bold leading-snug text-main-text">{concept.name}</h4>
@@ -70,7 +79,7 @@ const ConceptRow: React.FC<{
             <div className="flex flex-col gap-2 sm:items-end">
                 <MasteryLabel mastery={concept.masteryLevel} />
                 <div className="flex items-center justify-end gap-2">
-                    {concept.coverageStatus === 'NOT_COVERED' && (
+                    {status === 'NOT_COVERED' && (
                         <>
                             <Button
                                 variant="ghost"
@@ -90,7 +99,7 @@ const ConceptRow: React.FC<{
                             </Button>
                         </>
                     )}
-                    {concept.coverageStatus === 'ANTICIPATED_COVERED' && (
+                    {status === 'ANTICIPATED_COVERED' && (
                         <>
                             <Button
                                 variant="ghost"
@@ -110,7 +119,7 @@ const ConceptRow: React.FC<{
                             </Button>
                         </>
                     )}
-                    {concept.coverageStatus === 'COVERED' && (
+                    {status === 'COVERED' && (
                         <Button
                             variant="ghost"
                             size="sm"
@@ -164,9 +173,12 @@ export const ConceptsPanel: React.FC<{ courseId: string }> = ({ courseId }) => {
                         toast.error('Action impossible', { description: getErrorMessage(mutationError) }),
                 });
 
-    const coveredCount = concepts?.filter((c) => c.coverageStatus === 'COVERED').length ?? 0;
-    const anticipatedCount = concepts?.filter((c) => c.coverageStatus === 'ANTICIPATED_COVERED').length ?? 0;
-    const notCoveredCount = concepts?.filter((c) => c.coverageStatus === 'NOT_COVERED').length ?? 0;
+    const coveredCount =
+        concepts?.filter((concept) => resolveCoverage(concept).status === 'COVERED').length ?? 0;
+    const anticipatedCount =
+        concepts?.filter((concept) => resolveCoverage(concept).status === 'ANTICIPATED_COVERED').length ?? 0;
+    const notCoveredCount =
+        concepts?.filter((concept) => resolveCoverage(concept).status === 'NOT_COVERED').length ?? 0;
 
     return (
         <NeumorphicCard variant="flat" className="rounded-3xl">
