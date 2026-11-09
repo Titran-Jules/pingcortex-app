@@ -12,21 +12,21 @@ export const dashboardRoutes: RouteObject[] = [
     {
         path: 'courses',
         handle: { title: 'Mes cours' } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Dashboard () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (await import('../pages/courses/CoursesPage')).CoursesPage }),
     },
     {
         path: 'courses/:courseId',
         handle: { title: 'Cours', courseTitle: true } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Dashboard () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (await import('../pages/courses/CourseDetailPage')).CourseDetailPage }),
     },
     {
         path: 'review',
         handle: { title: 'Révision' } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Dashboard () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (function Review () {return (<div></div>)}) }),
     },
     {
         path: 'settings',
         handle: { title: 'Paramètres' } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Dashboard () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (function Settings () {return (<div></div>)}) }),
     },
 ];

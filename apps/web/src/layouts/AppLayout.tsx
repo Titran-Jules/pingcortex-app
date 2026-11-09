@@ -8,7 +8,7 @@ export const AppLayout: React.FC = () => {
     const title = useRouteTitle();
 
     useEffect(() => {
-        document.title = `${title} | PingCortex`;
+        document.title = `${title} - PingCortex`;
     }, [title]);
 
     return (

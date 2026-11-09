@@ -16,6 +16,7 @@
     --shadow-dark: #d5dbe5;
     --shadow-light: #ffffff;
     --success: #15803D;
+    --on-success: #FFFFFF;
     --warning: #A16207;
     --danger: #BE123C;
     --on-danger: #FFFFFF;
@@ -36,6 +37,7 @@
     --shadow-dark: #070a12;
     --shadow-light: #182238;
     --success: #4ADE80;
+    --on-success: #111827;
     --warning: #FACC15;
     --danger: #FB7185;
     --on-danger: #111827;
@@ -54,6 +56,7 @@
     --color-sub-text: var(--sub-text);
 
     --color-success: var(--success);
+    --color-on-success: var(--on-success);
     --color-warning: var(--warning);
     --color-danger: var(--danger);
     --color-on-danger: var(--on-danger);
