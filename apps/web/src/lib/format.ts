@@ -11,6 +11,10 @@ const DATETIME_FORMAT = new Intl.DateTimeFormat('fr-FR', {
     minute: '2-digit',
 });
 
+const NUMBER_FORMAT = new Intl.NumberFormat('fr-FR');
+
+export const formatNumber = (value: number): string => NUMBER_FORMAT.format(value);
+
 export const formatDate = (value: string): string => {
     const date = new Date(value);
     return Number.isNaN(date.getTime()) ? value : DATE_FORMAT.format(date);

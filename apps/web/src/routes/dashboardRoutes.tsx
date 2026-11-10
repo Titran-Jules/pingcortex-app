@@ -27,6 +27,6 @@ export const dashboardRoutes: RouteObject[] = [
     {
         path: 'settings',
         handle: { title: 'Paramètres' } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Settings () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (await import('../pages/settings/SettingsPage')).SettingsPage }),
     },
 ];

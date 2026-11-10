@@ -12,7 +12,7 @@ import {
     RotateCcw,
     TriangleAlert,
 } from 'lucide-react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useSearchParams } from 'react-router-dom';
 import { useCourseMaterials } from '../../hooks/queries/useCourseMaterials';
 import { useCourseConcepts } from '../../hooks/queries/useCourseConcepts';
 import { useCourse } from '../../hooks/queries/useCourse';
@@ -50,6 +50,7 @@ const CourseDetailError: React.FC<{ error: unknown; onRetry: () => void }> = ({ 
 );
 
 export const CourseDetailPage: React.FC = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const routeParams = useParams();
     const courseId = routeParams['courseId'];
     const isValidId = isUuid(courseId);
@@ -86,6 +87,15 @@ export const CourseDetailPage: React.FC = () => {
 
     if (!course) {
         return <CourseNotFoundView />;
+    }
+
+    const handleTabChange = (value: string) => {
+        if (!searchParams.get('tab')) {
+            setSearchParams({tab: 'materials'}, {replace: true});
+            setActiveTab('materials');
+        }
+        setSearchParams({tab: value}, {replace: true});
+        setActiveTab(value);
     }
 
     const handleRerun = () =>
@@ -140,7 +150,7 @@ export const CourseDetailPage: React.FC = () => {
 
             <Tabs
                 value={activeTab}
-                onValueChange={setActiveTab}
+                onValueChange={handleTabChange}
                 className="flex flex-col"
             >
                 <TabsList aria-label="Contenu du cours">
