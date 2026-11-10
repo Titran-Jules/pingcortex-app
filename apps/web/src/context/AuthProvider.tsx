@@ -106,8 +106,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
     }, []);
 
+    const refreshUser = useCallback(async () => {
+        if (statusRef.current !== 'authenticated') {
+            return;
+        }
+        const user = await api.user.getProfile();
+        setSession({ status: 'authenticated', user });
+    }, []);
+
     return (
-        <AuthContext.Provider value={{...session, login, register, logout}}>
+        <AuthContext.Provider value={{ ...session, login, register, logout, refreshUser }}>
             {children}
         </AuthContext.Provider>
     );

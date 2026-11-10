@@ -11,4 +11,5 @@ export interface AuthContextType extends Session {
     login: (credential: LoginRequest) => Promise<void>;
     register: (data: UserRegister) => Promise<'logged-in' | 'registered'>;
     logout: () => Promise<void>;
+    refreshUser: () => Promise<void>;
 }

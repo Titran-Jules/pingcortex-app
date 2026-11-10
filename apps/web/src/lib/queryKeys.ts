@@ -17,4 +17,7 @@ export const queryKeys = {
     usage: {
         summary: ['usage', 'summary'] as const,
     },
+    apiKeys: {
+        list: ['api-keys', 'list'] as const,
+    },
 };
