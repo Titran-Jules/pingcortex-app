@@ -90,6 +90,10 @@ export const CourseDetailPage: React.FC = () => {
     }
 
     const handleTabChange = (value: string) => {
+        if (!searchParams.get('tab')) {
+            setSearchParams({tab: 'materials'}, {replace: true});
+            setActiveTab('materials');
+        }
         setSearchParams({tab: value}, {replace: true});
         setActiveTab(value);
     }
