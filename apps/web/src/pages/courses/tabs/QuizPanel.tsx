@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useCallback, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Badge, Button, NeumorphicCard, toast } from '@pingcortex/ui';
 import { ArrowRight, HelpCircle, Sparkles } from 'lucide-react';
 import type {
@@ -14,6 +14,7 @@ import { api } from '../../../api/api';
 import { getErrorMessage } from '../../../errors/getErrorMessage';
 import { ConceptPicker } from '../components/ConceptPicker';
 import { MiniMeterBar } from '../components/MiniMeterBar';
+import { queryKeys } from '../../../lib/queryKeys';
 
 const DIFFICULTY_BADGES: Record<Difficulty, { label: string; variant: Variants }> = {
     EASY: { label: 'Facile', variant: 'success' },
@@ -105,11 +106,13 @@ const QuestionBlock: React.FC<{
     );
 };
 
-export const QuizPanel: React.FC<{ courseId: string; concepts: ConceptResponse[] }> = ({ concepts }) => {
+export const QuizPanel: React.FC<{ courseId: string; concepts: ConceptResponse[] }> = ({ courseId, concepts }) => {
     const [conceptId, setConceptId] = useState<string | null>(null);
     const [question, setQuestion] = useState<QuizQuestionResponse | null>(null);
     const [result, setResult] = useState<QuizAttemptResponse | null>(null);
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+
+    const queryClient = useQueryClient();
 
     const generate = useMutation({
         mutationFn: () => {
@@ -131,8 +134,24 @@ export const QuizPanel: React.FC<{ courseId: string; concepts: ConceptResponse[]
         mutationFn: (optionId: string) =>
             api.quiz.submitAnswer(question?.id as string, { selectedOptionId: optionId }),
         onSuccess: (attempt, optionId) => {
+            const key = queryKeys.courses.concepts(courseId ?? '');
             setResult(attempt);
             setSelectedOptionId(optionId);
+            queryClient.setQueryData<ConceptResponse[]>(key, (oldConcepts) => {
+                if (!oldConcepts) return oldConcepts;
+                return oldConcepts.map((concept) => {
+                    if (concept.id === conceptId) {
+                        return { ...concept, mastery: attempt.newMastery };
+                    }
+                    return concept;
+                });
+            });
+            queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.progress });
+            queryClient.invalidateQueries({ queryKey: queryKeys.reviews.today });
+            if (conceptId) {
+                queryClient.invalidateQueries({ queryKey: queryKeys.reviews.activity(conceptId) });
+            }
+            queryClient.invalidateQueries({ queryKey: queryKeys.usage.summary });
         },
         onError: (mutationError) =>
             toast.error('Évaluation impossible', { description: getErrorMessage(mutationError) }),

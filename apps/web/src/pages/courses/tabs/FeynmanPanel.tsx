@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button, NeumorphicCard, ProgressBar, toast } from '@pingcortex/ui';
 import { Edit3, Sparkles, TriangleAlert } from 'lucide-react';
 import type { ConceptResponse, FeynmanSubmissionResponse } from '@pingcortex/shared-types';
@@ -7,6 +7,7 @@ import { api } from '../../../api/api';
 import { getErrorMessage } from '../../../errors/getErrorMessage';
 import { ConceptPicker } from '../components/ConceptPicker';
 import { MiniMeterBar } from '../components/MiniMeterBar';
+import { queryKeys } from '../../../lib/queryKeys';
 
 const MIN_LENGTH = 20;
 
@@ -54,10 +55,12 @@ const EvaluationBlock: React.FC<{ submission: FeynmanSubmissionResponse }> = ({ 
     </section>
 );
 
-export const FeynmanPanel: React.FC<{ courseId: string; concepts: ConceptResponse[] }> = ({ concepts }) => {
+export const FeynmanPanel: React.FC<{ courseId: string; concepts: ConceptResponse[] }> = ({ courseId, concepts }) => {
     const [conceptId, setConceptId] = useState<string | null>(null);
     const [explanationText, setExplanationText] = useState('');
     const [submission, setSubmission] = useState<FeynmanSubmissionResponse | null>(null);
+
+    const queryClient = useQueryClient();
 
     const submit = useMutation({
         mutationFn: () => {
@@ -71,6 +74,17 @@ export const FeynmanPanel: React.FC<{ courseId: string; concepts: ConceptRespons
         onSuccess: (evaluation) => {
             setSubmission(evaluation);
             setExplanationText('');
+            
+            queryClient.invalidateQueries({ queryKey: queryKeys.courses.concepts(courseId) });
+            queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.progress });
+            queryClient.invalidateQueries({ queryKey: queryKeys.reviews.today });
+            
+            if (conceptId) {
+                queryClient.invalidateQueries({ queryKey: queryKeys.reviews.activity(conceptId) });
+            }
+            
+            queryClient.invalidateQueries({ queryKey: queryKeys.usage.summary });
+            
             toast.success('Tentative Feynman évaluée', {
                 description: 'Analysez le retour de PingCortex puis refaites une tentative pour progresser.',
             });
