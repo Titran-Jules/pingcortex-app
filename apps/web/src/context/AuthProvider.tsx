@@ -13,9 +13,15 @@ const SIGNED_OUT: Session = { status: 'unauthenticated', user: null };
 
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [session, setSession] = useState<Session>(() => 
+    const [session, setSession] = useState<Session>(() =>
         sessionHint.has() ? { status: 'loading', user: null } : SIGNED_OUT
     );
+
+    const statusRef = useRef<AuthStatus>(session.status);
+
+    useEffect(() => {
+        statusRef.current = session.status;
+    }, [session.status]);
 
     useEffect(() => {
         if (session.status === 'unauthenticated') {
@@ -48,12 +54,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         sessionHint.clear();
         setSession(SIGNED_OUT);
     };
-
-    const statusRef = useRef<AuthStatus>(session.status);
-
-    useEffect(() => {
-        statusRef.current = session.status;
-    }, [session.status]);
 
     useEffect(() => {
         let ignore = false;
@@ -131,9 +131,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const refreshUser = useCallback(async () => {
-        if (statusRef.current !== 'authenticated') {
-            return;
-        }
         const user = await api.user.getProfile();
         setSession({ status: 'authenticated', user });
     }, []);

@@ -24,7 +24,6 @@ export const useAddCourseMaterial = (courseId: string | undefined) => {
                 queryKeys.courses.materials(courseId),
                 (materials) => [...(materials ?? []), material]
             );
-            queryClient.invalidateQueries({ queryKey: queryKeys.courses.materials(courseId) });
             queryClient.invalidateQueries({ queryKey: queryKeys.courses.detail(courseId) });
             queryClient.invalidateQueries({ queryKey: queryKeys.courses.list });
             queryClient.invalidateQueries({ queryKey: queryKeys.usage.summary });
