@@ -88,7 +88,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setSession({ status: 'authenticated', user: user });
         } catch (error) {
             tokenStore.clearAccessToken();
-            try { await api.auth.logout(); } catch {return;}
+            void api.auth.logout().catch(() => undefined);
             sessionHint.clear();
             setSession(SIGNED_OUT);
             throw error;
