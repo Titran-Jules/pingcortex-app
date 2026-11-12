@@ -17,6 +17,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         sessionHint.has() ? { status: 'loading', user: null } : SIGNED_OUT
     );
 
+    useEffect(() => {
+        if (session.status === 'unauthenticated') {
+            void queryClient.cancelQueries();
+            queryClient.clear();
+        }
+    }, [session.status]);
+
     const clearUserSessionAndCache = async () => {
         await queryClient.cancelQueries();
         queryClient.clear();
