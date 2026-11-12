@@ -1,17 +1,15 @@
 import React, { useMemo } from 'react';
-import { Badge, Button, NeumorphicCard, ProgressBar, PromptInput } from '@pingcortex/ui';
+import { Button, NeumorphicCard, ProgressBar, PromptInput, ActivityBadge } from '@pingcortex/ui';
 import {
     BrainCircuit,
     CalendarClock,
-    Edit3,
-    HelpCircle,
     PlayCircle,
     Plus,
     RotateCcw,
     Sparkles,
     TriangleAlert,
 } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import type { ActivityType } from '@pingcortex/shared-types';
 import { useAuth } from '../../hooks/useAuth';
 import { useDashboardProgress } from '../../hooks/queries/useDashboardProgress';
@@ -27,28 +25,6 @@ interface DashboardReview {
     intervalDays: number;
     suggestedActivity?: ActivityType;
 }
-
-const ActivityBadge: React.FC<{ activity?: ActivityType }> = ({ activity }) => {
-    if (!activity) {
-        return (
-            <Badge variant="neutral" size="sm" leftIcon={<CalendarClock size={13} />}>
-                À réviser
-            </Badge>
-        );
-    }
-    if (activity === 'QUIZ') {
-        return (
-            <Badge variant="primary" size="sm" leftIcon={<HelpCircle size={13} />}>
-                Quiz
-            </Badge>
-        );
-    }
-    return (
-        <Badge variant="secondary" size="sm" leftIcon={<Edit3 size={13} />}>
-            Feynman
-        </Badge>
-    );
-};
 
 const ACTIVITY_ACTION: Record<ActivityType, string> = {
     QUIZ: 'Répondre au quiz',
@@ -99,6 +75,7 @@ const DashboardError: React.FC<{ error: unknown; onRetry: () => void }> = ({ err
 );
 
 export const DashboardPage: React.FC = () => {
+    const navigate = useNavigate();
     const { user } = useAuth();
     const {
         data: coursesProgress,
@@ -207,7 +184,13 @@ export const DashboardPage: React.FC = () => {
                                 )}
                             </p>
                         </div>
-                        <Button variant="generate" isGlowing leftIcon={<PlayCircle size={16} />} disabled={reviews.length === 0}>
+                        <Button
+                            variant="generate"
+                            isGlowing
+                            leftIcon={<PlayCircle size={16} />}
+                            disabled={reviews.length === 0}
+                            onClick={() => navigate('/review')}
+                        >
                             Démarrer les révisions
                         </Button>
                     </NeumorphicCard>
