@@ -3,7 +3,7 @@ import { UNAUTHENTICATED_EVENT } from "../api/api";
 import { AuthContext } from "./AuthContext";
 import type { Session, AuthStatus } from "@pingcortex/shared-types";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { sessionHint } from "../api/sessionHint";
+import { SESSION_HINT_KEY, sessionHint } from "../api/sessionHint";
 import { api } from "../api/api";
 import { tokenStore } from "@pingcortex/api-client";
 import { toast } from "@pingcortex/ui";
@@ -23,6 +23,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             queryClient.clear();
         }
     }, [session.status]);
+
+    useEffect(() => {
+        const handleStorageEvent = (event: StorageEvent) => {
+            if (event.key === SESSION_HINT_KEY) {
+                if (event.newValue === null && statusRef.current === 'authenticated') {
+                    void queryClient.cancelQueries();
+                    queryClient.clear();
+                    tokenStore.clearAccessToken();
+                    setSession(SIGNED_OUT);
+                }
+            } 
+        };
+        window.addEventListener('storage', handleStorageEvent);
+        return () => {
+            window.removeEventListener('storage', handleStorageEvent);
+        };
+    }, []);
 
     const clearUserSessionAndCache = async () => {
         await queryClient.cancelQueries();
