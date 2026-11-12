@@ -3,7 +3,7 @@ import { UNAUTHENTICATED_EVENT } from "../api/api";
 import { AuthContext } from "./AuthContext";
 import type { Session, AuthStatus } from "@pingcortex/shared-types";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { sessionHint } from "../api/sessionHint";
+import { SESSION_HINT_KEY, sessionHint } from "../api/sessionHint";
 import { api } from "../api/api";
 import { tokenStore } from "@pingcortex/api-client";
 import { toast } from "@pingcortex/ui";
@@ -13,9 +13,39 @@ const SIGNED_OUT: Session = { status: 'unauthenticated', user: null };
 
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [session, setSession] = useState<Session>(() => 
+    const [session, setSession] = useState<Session>(() =>
         sessionHint.has() ? { status: 'loading', user: null } : SIGNED_OUT
     );
+
+    const statusRef = useRef<AuthStatus>(session.status);
+
+    useEffect(() => {
+        statusRef.current = session.status;
+    }, [session.status]);
+
+    useEffect(() => {
+        if (session.status === 'unauthenticated') {
+            void queryClient.cancelQueries();
+            queryClient.clear();
+        }
+    }, [session.status]);
+
+    useEffect(() => {
+        const handleStorageEvent = (event: StorageEvent) => {
+            if (event.key === SESSION_HINT_KEY) {
+                if (event.newValue === null && statusRef.current === 'authenticated') {
+                    void queryClient.cancelQueries();
+                    queryClient.clear();
+                    tokenStore.clearAccessToken();
+                    setSession(SIGNED_OUT);
+                }
+            } 
+        };
+        window.addEventListener('storage', handleStorageEvent);
+        return () => {
+            window.removeEventListener('storage', handleStorageEvent);
+        };
+    }, []);
 
     const clearUserSessionAndCache = async () => {
         await queryClient.cancelQueries();
@@ -24,12 +54,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         sessionHint.clear();
         setSession(SIGNED_OUT);
     };
-
-    const statusRef = useRef<AuthStatus>(session.status);
-
-    useEffect(() => {
-        statusRef.current = session.status;
-    }, [session.status]);
 
     useEffect(() => {
         let ignore = false;
@@ -81,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setSession({ status: 'authenticated', user: user });
         } catch (error) {
             tokenStore.clearAccessToken();
-            try { await api.auth.logout(); } catch {return;}
+            void api.auth.logout().catch(() => undefined);
             sessionHint.clear();
             setSession(SIGNED_OUT);
             throw error;
@@ -107,9 +131,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const refreshUser = useCallback(async () => {
-        if (statusRef.current !== 'authenticated') {
-            return;
-        }
         const user = await api.user.getProfile();
         setSession({ status: 'authenticated', user });
     }, []);

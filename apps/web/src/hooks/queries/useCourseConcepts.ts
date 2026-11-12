@@ -22,7 +22,6 @@ const useCoverageMutation = (
             queryClient.setQueryData<ConceptResponse[]>(key, (concepts) =>
                 concepts?.map((concept) => (concept.id === updated.id ? updated : concept))
             );
-            queryClient.invalidateQueries({ queryKey: key });
             queryClient.invalidateQueries({ queryKey: queryKeys.courses.detail(courseId) });
             queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.progress });
             queryClient.invalidateQueries({ queryKey: queryKeys.reviews.today });

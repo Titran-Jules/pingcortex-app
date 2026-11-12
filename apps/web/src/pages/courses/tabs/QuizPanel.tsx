@@ -141,7 +141,7 @@ export const QuizPanel: React.FC<{ courseId: string; concepts: ConceptResponse[]
                 if (!oldConcepts) return oldConcepts;
                 return oldConcepts.map((concept) => {
                     if (concept.id === conceptId) {
-                        return { ...concept, mastery: attempt.newMastery };
+                        return { ...concept, masteryLevel: attempt.newMastery };
                     }
                     return concept;
                 });

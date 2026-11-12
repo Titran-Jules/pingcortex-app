@@ -52,7 +52,7 @@ export class PingCortexApi {
             }).then((res) => res.data),
         
         reRunAnalysis: (courseId: UUID, config?: AxiosRequestConfig) =>
-            this.client.post<CourseResponse>(`/courses/${courseId}/analyze`, config).then((res) => res.data),
+            this.client.post<CourseResponse>(`/courses/${courseId}/analyze`, undefined, config).then((res) => res.data),
 
         getCourseById: (courseId: UUID, config?: AxiosRequestConfig) =>
             this.client.get<CourseResponse>(`/courses/${courseId}`, config).then((res) => res.data),
@@ -89,7 +89,10 @@ export class PingCortexApi {
 
     quiz = {
         getQuizQuestion: (conceptId: UUID, config?: AxiosRequestConfig) =>
-            this.client.post<QuizQuestionResponse>(`/concepts/${conceptId}/quiz`, config).then((res) => res.data),
+            this.client.post<QuizQuestionResponse>(`/concepts/${conceptId}/quiz`, undefined, {
+                ...config,
+                timeout: 90_000,
+            }).then((res) => res.data),
 
         submitAnswer: (questionId: UUID, data: QuizAttemptCreate, config?: AxiosRequestConfig) =>
             this.client.post<QuizAttemptResponse>(`/quiz-questions/${questionId}/attempts`, data, config).then((res) => res.data),
@@ -111,7 +114,7 @@ export class PingCortexApi {
             this.client.get<ChatSessionResponse[]>(`/courses/${courseId}/chat-sessions`, config).then((res) => res.data),
 
         addNewChatSession: (courseId: UUID, config?: AxiosRequestConfig) =>
-            this.client.post<ChatSessionResponse>(`/courses/${courseId}/chat-sessions`, config).then((res) => res.data),
+            this.client.post<ChatSessionResponse>(`/courses/${courseId}/chat-sessions`, undefined, config).then((res) => res.data),
 
         getMessagesBySessionId: (sessionId: UUID, config?: AxiosRequestConfig) =>
             this.client.get<ChatMessageResponse[]>(`/chat-sessions/${sessionId}/messages`, config).then((res) => res.data),
