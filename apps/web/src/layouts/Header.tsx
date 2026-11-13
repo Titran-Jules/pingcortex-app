@@ -3,6 +3,7 @@ import { Bell, LogOut, Settings, Sparkles, ChevronDown } from 'lucide-react';
 import { ToggleTheme } from '@pingcortex/ui';
 import { useAuth } from '../hooks/useAuth';
 import { useRouteTitle } from '../hooks/useRouteTitle';
+import { NavLink } from 'react-router-dom';
 
 export const Header: React.FC = () => {
     const { user, logout } = useAuth();
@@ -90,9 +91,9 @@ export const Header: React.FC = () => {
 
                     {showProfileMenu && (
                         <div className="absolute right-0 mt-3 w-48 rounded-2xl bg-container-bg p-2 shadow-neu-flat z-50 border border-main-text/10 flex flex-col gap-1">
-                            <button className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-sub-text hover:text-secondary rounded-xl transition-all hover:shadow-neu-pressed-sm">
+                            <NavLink to="/settings?tab=profil" className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-sub-text hover:text-secondary rounded-xl transition-all hover:shadow-neu-pressed-sm">
                                 <Settings size={14} /> Mon Profil
-                            </button>
+                            </NavLink>
                             <button onClick={() => logout()} className="flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 rounded-xl transition-all">
                                 <LogOut size={14} /> Déconnexion
                             </button>

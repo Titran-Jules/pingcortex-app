@@ -17,3 +17,4 @@ export * from './components/Tabs';
 export * from './components/toast/toast';
 export * from './components/toast/Toaster';
 export * from './components/Modal';
+export * from './components/ActivityBadge';

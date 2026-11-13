@@ -22,7 +22,7 @@ export const dashboardRoutes: RouteObject[] = [
     {
         path: 'review',
         handle: { title: 'Révision' } satisfies RouteTitleHandle,
-        lazy: async () => ({ Component: (function Review () {return (<div></div>)}) }),
+        lazy: async () => ({ Component: (await import('../pages/review/ReviewPage')).ReviewPage }),
     },
     {
         path: 'settings',
