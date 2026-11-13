@@ -212,7 +212,7 @@ export const DashboardPage: React.FC = () => {
                         {reviews.length === 0 ? (
                             <div className='h-75 flex flex-col items-center justify-center gap-4 rounded-2xl bg-core-bg p-4 text-sm text-sub-text shadow-neu-pressed-sm'>
                                 <span className='text-6xl font-bold'>
-                                    :/
+                                    :)
                                 </span>
                                 <p className='w-80 text-center font-semibold'>
                                     Rien à réviser aujourd'hui : revenez dès qu'une révision sera programmée.
